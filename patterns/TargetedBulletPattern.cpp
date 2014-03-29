@@ -19,7 +19,18 @@ TargetedBulletPattern::TargetedBulletPattern(int count, ofVec2f origin, float bu
 {
 }
 
+TargetedBulletPattern::TargetedBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty)
+: BulletPattern(count, origin, bulletspeed, volley_timeout, period, duty)
+{
+}
+
 void TargetedBulletPattern::volley(){
     Player *player = (*(this->players)).front();
-    cout << player->pos.x << endl;
+    
+    for (int i = 0; i < this->count; i++) {
+        ofVec2f velocity = player->pos - this->origin;
+        velocity = velocity.normalize()*this->bulletspeed;
+        Bullet *b = new Bullet(this->origin, velocity);
+        bullets.push_back(*b);
+    }
 }

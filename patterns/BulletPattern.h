@@ -22,7 +22,7 @@ public:
     vector<Bullet> bullets;
     vector<Player*>* players;
     ofVec2f origin;
-    float volley_timeout, bulletspeed;
+    float volley_timeout, bulletspeed, period, duty;
     bool isrunning;
     int count;
     
@@ -30,13 +30,14 @@ public:
     BulletPattern(int count);
     BulletPattern(int count, ofVec2f origin);
     BulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
-    void init(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
+    BulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
+    void init(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
     void draw();
     void update(float deltatime);
     void start();
     void setPlayersReference(vector<Player*>* players);
     
 private:
-    float frame_lifetime, last_volley;
+    float frame_lifetime, last_volley, period_switch;
     virtual void volley() = 0;
 };

@@ -18,5 +18,6 @@ class TargetedBulletPattern : public BulletPattern{
 public:
     TargetedBulletPattern(int count, ofVec2f origin);
     TargetedBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
+    TargetedBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
     void volley();
 };
