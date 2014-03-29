@@ -14,7 +14,7 @@ Player *player;
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofVec2f origin = ofVec2f(400,200);
+    ofVec2f origin = ofVec2f(230,200);
     player = new Player(kControlTypeKeyboard);
     
     BulletPatternGroup *group;
@@ -28,7 +28,12 @@ void testApp::setup(){
     groups.push_back(group);
     
     group = new BulletPatternGroup();
-    group->addPattern(new TargetedBulletPattern(1, origin, 5, .1, 2, .5));
+    float angle = 1;
+    for(int i = 0; i < 10; i++){
+        ofVec2f thispos = ofVec2f(200*sin(angle),200*cos(angle));
+        group->addPattern(new TargetedBulletPattern(1, thispos+ofVec2f(300, 300), 5, .1, 2, .5));
+        angle += (2*PI)/10;
+    }
     groups.push_back(group);
     
     group = new BulletPatternGroup();
