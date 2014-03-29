@@ -5,10 +5,10 @@
 #include "OscillatingFanOutBulletPattern.h"
 #include "TargetedBulletPattern.h"
 #include "Player.h"
+#include "BulletPatternGroup.h"
 
-bool moving = false;
-vector<BulletPattern*> patterns;
-vector<BulletPattern*>::iterator cur_pattern;
+vector<BulletPatternGroup*> groups;
+vector<BulletPatternGroup*>::iterator cur_group;
 vector<Player*> players;
 Player *player;
 
@@ -16,28 +16,46 @@ Player *player;
 void testApp::setup(){
     ofVec2f origin = ofVec2f(400,200);
     player = new Player(kControlTypeKeyboard);
-    patterns.push_back(new CyclicEllipseBulletPattern(30, origin, 5, .3));
-    patterns.push_back(new RadialBulletPattern(20, origin, 10, .085));
-    patterns.push_back(new TargetedBulletPattern(1, origin, 5, .1, 2, .5));
-    patterns.push_back(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1)));
-    patterns.push_back(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
-    cur_pattern = patterns.begin();
+    
+    BulletPatternGroup *group;
+    
+    group = new BulletPatternGroup();
+    group->addPattern(new CyclicEllipseBulletPattern(30, origin, 5, .3));
+    groups.push_back(group);
+    
+    group = new BulletPatternGroup();
+    group->addPattern(new RadialBulletPattern(20, origin, 10, .085));
+    groups.push_back(group);
+    
+    group = new BulletPatternGroup();
+    group->addPattern(new TargetedBulletPattern(1, origin, 5, .1, 2, .5));
+    groups.push_back(group);
+    
+    group = new BulletPatternGroup();
+    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1)));
+    groups.push_back(group);
+    
+    group = new BulletPatternGroup();
+    group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
+    groups.push_back(group);
+    
+    cur_group = groups.begin();
     
     players.push_back(player);
     
-    for(vector<BulletPattern*>::iterator it = patterns.begin(); it != patterns.end(); ++it) {
-        BulletPattern* current = (BulletPattern *)*it;
-        current->setPlayersReference(&players);
+    for(vector<BulletPatternGroup*>::iterator it = groups.begin(); it != groups.end(); ++it) {
+        BulletPatternGroup* currentGroup = (BulletPatternGroup *)*it;
+        for(vector<BulletPattern*>::iterator it2 = currentGroup->patterns.begin(); it2 != currentGroup->patterns.end(); ++it2) {
+            BulletPattern* currentPattern = (BulletPattern *)*it2;
+            currentPattern->setPlayersReference(&players);
+        }
     }
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     float deltatime = ofGetLastFrameTime();
-    (*cur_pattern)->update(deltatime);
-    if (moving) {
-        (*cur_pattern)->origin.x = 400+100*sin(ofGetElapsedTimef());
-    }
+    (*cur_group)->update(deltatime);
     player->update(deltatime);
 }
 
@@ -49,7 +67,7 @@ void testApp::draw(){
     int b = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
     ofSetColor(r, g, b);
     ofFill();
-    (*cur_pattern)->draw();
+    (*cur_group)->draw();
     player->draw();
 }
 
@@ -57,13 +75,11 @@ void testApp::draw(){
 void testApp::keyPressed(int key){
     player->keyPressed(key);
     if (key == ' ') {
-        if (cur_pattern == patterns.end() - 1) {
-            cur_pattern = patterns.begin();
+        if (cur_group == groups.end() - 1) {
+            cur_group = groups.begin();
         } else {
-            cur_pattern++;
+            cur_group++;
         }
-    } else if (key == 'z') {
-        moving = moving ? false : true;
     }
 }
 
