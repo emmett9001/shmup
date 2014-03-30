@@ -11,6 +11,9 @@
 Player::Player(controlType control_type) {
     this->pos = ofVec2f(200, 200);
     this->speed = 2;
+    if (control_type == kControlTypeJoystick) {
+        this->speed = 3;
+    }
     this->control_type = control_type;
 }
 
@@ -47,6 +50,30 @@ void Player::keyReleased(int key){
     if (key == 357 || key == 359) {
         this->dir.y = 0;
     }
+}
+
+void Player::axisChanged(ofxGamepadAxisEvent& e)
+{
+    if (this->control_type != kControlTypeJoystick) return;
+    if (e.axis == 2) {
+        cout << "axis 2 " << ofToString(e.value) << endl;
+        this->dir.x = speed*e.value;
+    } else if (e.axis == 3) {
+        cout << "axis 3 " << ofToString(e.value) << endl;
+        this->dir.y = speed*e.value;
+    }
+}
+
+void Player::buttonPressed(ofxGamepadButtonEvent& e)
+{
+    if (this->control_type != kControlTypeJoystick) return;
+	cout << "BUTTON " << e.button << " PRESSED" << endl;
+}
+
+void Player::buttonReleased(ofxGamepadButtonEvent& e)
+{
+    if (this->control_type != kControlTypeJoystick) return;
+	cout << "BUTTON " << e.button << " RELEASED" << endl;
 }
 
 void Player::draw() {

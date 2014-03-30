@@ -11,11 +11,12 @@
 
 #include <iostream>
 #include "GameObject.h"
+#include "ofxGamepadHandler.h"
 
 #endif /* defined(__shmup__Player__) */
 
 typedef enum _controlType {
-    kControlTypeKeyboard, kControlTypeMouse
+    kControlTypeKeyboard, kControlTypeMouse, kControlTypeJoystick
 } controlType;
 
 class Player : public GameObject {
@@ -28,6 +29,9 @@ public:
     void keyPressed(int key);
     void keyReleased(int key);
     void mouseMoved(int x, int y);
+    void axisChanged(ofxGamepadAxisEvent& e);
+    void buttonPressed(ofxGamepadButtonEvent& e);
+    void buttonReleased(ofxGamepadButtonEvent& e);
 
 private:
     controlType control_type;

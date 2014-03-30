@@ -29,6 +29,12 @@ FanOutBulletPattern::FanOutBulletPattern(int count, ofVec2f origin, float bullet
 {
 }
 
+FanOutBulletPattern::FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width,
+                                         ofVec2f direction, float rotation_speed, float period, float duty)
+: BulletPattern(count, origin, bulletspeed, volley_timeout, period, duty), width(width), direction(direction), rotation_speed(rotation_speed)
+{
+}
+
 
 void FanOutBulletPattern::volley() {
     this->direction.normalize();

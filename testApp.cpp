@@ -14,8 +14,20 @@ Player *player;
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    ofxGamepadHandler::get()->enableHotplug();
+    
+    controlType control_type = kControlTypeKeyboard;
+	if(ofxGamepadHandler::get()->getNumPads()>0){
+        ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
+        ofAddListener(pad->onAxisChanged, this, &testApp::axisChanged);
+        ofAddListener(pad->onButtonPressed, this, &testApp::buttonPressed);
+        ofAddListener(pad->onButtonReleased, this, &testApp::buttonReleased);
+        
+        control_type = kControlTypeJoystick;
+	}
+    
     ofVec2f origin = ofVec2f(230,200);
-    player = new Player(kControlTypeKeyboard);
+    player = new Player(control_type);
     
     BulletPatternGroup *group;
     
@@ -25,6 +37,7 @@ void testApp::setup(){
     
     group = new BulletPatternGroup();
     group->addPattern(new RadialBulletPattern(20, origin, 10, .085));
+    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
     groups.push_back(group);
     
     group = new BulletPatternGroup();
@@ -42,6 +55,7 @@ void testApp::setup(){
     
     group = new BulletPatternGroup();
     group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
+    group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
     
     cur_group = groups.begin();
@@ -96,6 +110,21 @@ void testApp::keyReleased(int key){
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y){
     player->mouseMoved(x, y);
+}
+
+void testApp::axisChanged(ofxGamepadAxisEvent& e)
+{
+	player->axisChanged(e);
+}
+
+void testApp::buttonPressed(ofxGamepadButtonEvent& e)
+{
+	player->buttonPressed(e);
+}
+
+void testApp::buttonReleased(ofxGamepadButtonEvent& e)
+{
+	player->buttonReleased(e);
 }
 
 //--------------------------------------------------------------

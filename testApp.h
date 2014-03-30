@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGamepadHandler.h"
+
+#define USE_OIS
 
 class testApp : public ofBaseApp{
 	public:
@@ -17,4 +20,8 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+        void axisChanged(ofxGamepadAxisEvent &e);
+        void buttonPressed(ofxGamepadButtonEvent &e);
+        void buttonReleased(ofxGamepadButtonEvent &e);
 };

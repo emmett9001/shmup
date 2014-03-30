@@ -25,5 +25,6 @@ public:
     FanOutBulletPattern(float width, ofVec2f direction);
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction);
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction, float rotation_speed);
+    FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction, float rotation_speed, float period, float duty);
     void volley();
 };
