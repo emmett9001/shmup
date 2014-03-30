@@ -13,7 +13,7 @@
 
 BoardQuadrant::BoardQuadrant(ofRectangle rect) {
     this->rect = rect;
-    this->color = ofColor(ofRandom(256), ofRandom(256), ofRandom(256));
+    this->color = ofColor(256-ofRandom(100), 256-ofRandom(100), 256-ofRandom(100));
     this->collisionSubscribers = vector<BoardQuadrantCollisionDelegate *>();
 }
 

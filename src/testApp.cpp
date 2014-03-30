@@ -35,7 +35,7 @@ void testApp::setup(){
     BulletPatternGroup *group;
     
     group = new BulletPatternGroup();
-    group->addPattern(new CyclicEllipseBulletPattern(30, origin, 5, .3));
+    group->addPattern(new CyclicEllipseBulletPattern(30, origin, 7, .3));
     groups.push_back(group);
     
     group = new BulletPatternGroup();
