@@ -1,15 +1,18 @@
 #pragma once
 
 #include "ofMain.h"
+#include "GameObject.h"
+#include "BoardPartition.h"
 #include "ofxGamepadHandler.h"
 
 #define USE_OIS
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp, public BoardQuadrantCollisionDelegate {
 	public:
 		void setup();
 		void update();
 		void draw();
+        void collided(GameObject *obj);
 		
 		void keyPressed(int key);
 		void keyReleased(int key);

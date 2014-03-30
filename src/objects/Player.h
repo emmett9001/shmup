@@ -21,7 +21,7 @@ typedef enum _controlType {
 
 class Player : public GameObject {
 public:
-    float speed;
+    float speed, hitbox_radius;
     
     Player(controlType control_type);
     void draw();

@@ -10,6 +10,7 @@
 
 Player::Player(controlType control_type) {
     this->pos = ofVec2f(200, 200);
+    this->hitbox_radius = 5;
     this->speed = 2;
     if (control_type == kControlTypeJoystick) {
         this->speed = 3;
@@ -55,12 +56,11 @@ void Player::keyReleased(int key){
 void Player::axisChanged(ofxGamepadAxisEvent& e)
 {
     if (this->control_type != kControlTypeJoystick) return;
+    float value = abs(e.value) < .2 ? 0 : e.value;
     if (e.axis == 2) {
-        cout << "axis 2 " << ofToString(e.value) << endl;
-        this->dir.x = speed*e.value;
+        this->dir.x = speed*value;
     } else if (e.axis == 3) {
-        cout << "axis 3 " << ofToString(e.value) << endl;
-        this->dir.y = speed*e.value;
+        this->dir.y = speed*value;
     }
 }
 
@@ -77,5 +77,8 @@ void Player::buttonReleased(ofxGamepadButtonEvent& e)
 }
 
 void Player::draw() {
-    ofCircle(this->pos.x, this->pos.y, 5);
+    ofSetColor(0, 256, 0);
+    ofCircle(this->pos.x, this->pos.y, 20);
+    ofSetColor(256, 0, 0);
+    ofCircle(this->pos.x, this->pos.y, this->hitbox_radius);
 }

@@ -11,6 +11,7 @@ vector<BulletPatternGroup*> groups;
 vector<BulletPatternGroup*>::iterator cur_group;
 vector<Player*> players;
 Player *player;
+BoardPartition *board_partition;
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -29,6 +30,7 @@ void testApp::setup(){
     ofVec2f origin = ofVec2f(230,200);
     player = new Player(control_type);
     
+    board_partition = new BoardPartition();
     BulletPatternGroup *group;
     
     group = new BulletPatternGroup();
@@ -62,6 +64,9 @@ void testApp::setup(){
     
     players.push_back(player);
     
+    board_partition->setPlayersReference(&players);
+    board_partition->setGroupReference(*cur_group);
+    board_partition->setDelegate(this);
     for(vector<BulletPatternGroup*>::iterator it = groups.begin(); it != groups.end(); ++it) {
         BulletPatternGroup* currentGroup = (BulletPatternGroup *)*it;
         for(vector<BulletPattern*>::iterator it2 = currentGroup->patterns.begin(); it2 != currentGroup->patterns.end(); ++it2) {
@@ -71,23 +76,33 @@ void testApp::setup(){
     }
 }
 
+void testApp::collided(GameObject *obj) {
+    cout << "callback yo " << ofRandom(10) << endl;
+}
+
 //--------------------------------------------------------------
 void testApp::update(){
     float deltatime = ofGetLastFrameTime();
     (*cur_group)->update(deltatime);
     player->update(deltatime);
+    board_partition->update(deltatime);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(255, 255, 255);
+    
+    board_partition->draw();
+    
     int r = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
     int g = ofMap(mouseY, 0, ofGetHeight(), 0, 255);
     int b = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
+    
+    player->draw();
+    
     ofSetColor(r, g, b);
     ofFill();
     (*cur_group)->draw();
-    player->draw();
 }
 
 //--------------------------------------------------------------
@@ -99,6 +114,7 @@ void testApp::keyPressed(int key){
         } else {
             cur_group++;
         }
+        board_partition->setGroupReference(*cur_group);
     }
 }
 

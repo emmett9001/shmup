@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA02098718E89BE500D6C1CB /* BoardQuadrant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA02098518E89BE500D6C1CB /* BoardQuadrant.cpp */; };
+		AA02098A18E89D2F00D6C1CB /* BoardPartition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA02098818E89D2F00D6C1CB /* BoardPartition.cpp */; };
 		AA84443918E75D8C0093D8CD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA84442518E75D8C0093D8CD /* main.cpp */; };
 		AA84443A18E75D8C0093D8CD /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA84442718E75D8C0093D8CD /* Bullet.cpp */; };
 		AA84443B18E75D8C0093D8CD /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA84442918E75D8C0093D8CD /* GameObject.cpp */; };
@@ -81,6 +83,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA02098518E89BE500D6C1CB /* BoardQuadrant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoardQuadrant.cpp; sourceTree = "<group>"; };
+		AA02098618E89BE500D6C1CB /* BoardQuadrant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardQuadrant.h; sourceTree = "<group>"; };
+		AA02098818E89D2F00D6C1CB /* BoardPartition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoardPartition.cpp; sourceTree = "<group>"; };
+		AA02098918E89D2F00D6C1CB /* BoardPartition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPartition.h; sourceTree = "<group>"; };
 		AA84442518E75D8C0093D8CD /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AA84442718E75D8C0093D8CD /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bullet.cpp; sourceTree = "<group>"; };
 		AA84442818E75D8C0093D8CD /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
@@ -224,6 +230,10 @@
 				AA84442A18E75D8C0093D8CD /* GameObject.h */,
 				AA84442B18E75D8C0093D8CD /* Player.cpp */,
 				AA84442C18E75D8C0093D8CD /* Player.h */,
+				AA02098518E89BE500D6C1CB /* BoardQuadrant.cpp */,
+				AA02098618E89BE500D6C1CB /* BoardQuadrant.h */,
+				AA02098818E89D2F00D6C1CB /* BoardPartition.cpp */,
+				AA02098918E89D2F00D6C1CB /* BoardPartition.h */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -596,12 +606,14 @@
 				AA84444018E75D8C0093D8CD /* OscillatingFanOutBulletPattern.cpp in Sources */,
 				AAC40C7218E86834000BBEAF /* ofxGamepadLinux.cpp in Sources */,
 				AAC40C7318E86834000BBEAF /* ofxGamepadOIS.cpp in Sources */,
+				AA02098A18E89D2F00D6C1CB /* BoardPartition.cpp in Sources */,
 				AA84443F18E75D8C0093D8CD /* FanOutBulletPattern.cpp in Sources */,
 				AAC40C7018E86834000BBEAF /* ofxGamepadCamera.cpp in Sources */,
 				AA84444218E75D8C0093D8CD /* testApp.cpp in Sources */,
 				AA84443A18E75D8C0093D8CD /* Bullet.cpp in Sources */,
 				AA84444118E75D8C0093D8CD /* RadialBulletPattern.cpp in Sources */,
 				AA84443E18E75D8C0093D8CD /* CyclicEllipseBulletPattern.cpp in Sources */,
+				AA02098718E89BE500D6C1CB /* BoardQuadrant.cpp in Sources */,
 				AA84444918E769EE0093D8CD /* TargetedBulletPattern.cpp in Sources */,
 				AAC40C6F18E86834000BBEAF /* ofxGamepad.cpp in Sources */,
 				AA84444C18E78A5D0093D8CD /* BulletPatternGroup.cpp in Sources */,
