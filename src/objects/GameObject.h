@@ -20,6 +20,7 @@
 class GameObject{
 public:
     ofVec2f pos, dir;
+    float frame_lifetime;
     
     virtual void draw() = 0;
     virtual void update(float deltatime);

@@ -11,7 +11,10 @@
 Player::Player(controlType control_type) {
     this->pos = ofVec2f(200, 200);
     this->hitbox_radius = 5;
+    this->colliding = false;
+    this->respawned = false;
     this->speed = 2;
+    this->color = ofColor(0, 255, 0);
     if (control_type == kControlTypeJoystick) {
         this->speed = 3;
     }
@@ -25,6 +28,22 @@ void Player::mouseMoved(int x, int y) {
 
 void Player::update(float deltatime) {
     GameObject::update(deltatime);
+    
+    if (this->colliding) {
+        if (this->frame_lifetime > .5 + this->collide_time) {
+            this->respawn_time = this->frame_lifetime;
+            this->color = ofColor(0, 255, 255);
+            this->colliding = false;
+            this->respawned = true;
+        }
+    }
+    
+    if (this->respawned) {
+        if (this->frame_lifetime > 1 + this->respawn_time) {
+            this->color = ofColor(0, 255, 0);
+            this->respawned = false;
+        }
+    }
 }
 
 void Player::keyPressed(int key){
@@ -40,6 +59,14 @@ void Player::keyPressed(int key){
     }
     if (key == 359) {  // down
         this->dir.y = speed;
+    }
+}
+
+void Player::collided(GameObject *obj) {
+    if (!this->respawned) {
+        this->color = ofColor(0, 0, 255);
+        this->colliding = true;
+        this->collide_time = this->frame_lifetime;
     }
 }
 
@@ -77,7 +104,7 @@ void Player::buttonReleased(ofxGamepadButtonEvent& e)
 }
 
 void Player::draw() {
-    ofSetColor(0, 256, 0);
+    ofSetColor(this->color);
     ofCircle(this->pos.x, this->pos.y, 20);
     ofSetColor(256, 0, 0);
     ofCircle(this->pos.x, this->pos.y, this->hitbox_radius);

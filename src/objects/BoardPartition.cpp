@@ -8,10 +8,14 @@
 
 #include "BoardPartition.h"
 #include "Player.h"
+#include "BoardQuadrant.h"
 
 BoardPartition::BoardPartition() {
     this->quads = vector<BoardQuadrant *>();
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 0, ofGetWidth(), ofGetHeight())));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 0, ofGetWidth()/2, ofGetHeight()/2)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/2)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(0, ofGetHeight()/2, ofGetWidth()/2, ofGetHeight()/2)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, ofGetHeight()/2, ofGetWidth()/2, ofGetHeight()/2)));
 }
 
 void BoardPartition::draw() {
@@ -45,6 +49,6 @@ void BoardPartition::setGroupReference(BulletPatternGroup *pattern_group) {
 void BoardPartition::setDelegate(BoardQuadrantCollisionDelegate *delegate) {
     for(vector<BoardQuadrant*>::iterator it = this->quads.begin(); it != this->quads.end(); ++it) {
         BoardQuadrant *quad = (BoardQuadrant *)*it;
-        quad->delegate = delegate;
+        quad->collisionSubscribers.push_back(delegate);
     }
 }

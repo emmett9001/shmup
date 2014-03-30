@@ -28,7 +28,7 @@ public:
     ofRectangle rect;
     ofColor color;
     vector<Player*>* players;
-    BoardQuadrantCollisionDelegate *delegate;
+    vector<BoardQuadrantCollisionDelegate *>collisionSubscribers;
     BulletPatternGroup* pattern_group;
     bool contains_player;
     

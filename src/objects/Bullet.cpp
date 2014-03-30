@@ -11,6 +11,7 @@
 Bullet::Bullet(ofVec2f pos, ofVec2f dir){
     this->pos = pos;
     this->dir = dir;
+    this->color = ofColor(0, 0, 0);
     this->radius = 8;
     this->hasfired = false;
     
@@ -18,6 +19,7 @@ Bullet::Bullet(ofVec2f pos, ofVec2f dir){
 }
 
 void Bullet::draw(){
+    ofSetColor(this->color);
     ofCircle(this->pos.x, this->pos.y, this->radius);
 }
 
@@ -31,4 +33,12 @@ void Bullet::update(float deltatime){
     if(this->hasfired){
         GameObject::update(deltatime);
     }
+}
+
+void Bullet::makeActiveForCollisionFiltering() {
+    this->color = ofColor(255, 255, 255);
+}
+
+void Bullet::makeInactiveForCollisionFiltering() {
+    this->color = ofColor(0, 0, 0);
 }

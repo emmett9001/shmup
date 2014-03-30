@@ -6,6 +6,7 @@
 #include "TargetedBulletPattern.h"
 #include "Player.h"
 #include "BulletPatternGroup.h"
+#include "BoardPartition.h"
 
 vector<BulletPatternGroup*> groups;
 vector<BulletPatternGroup*>::iterator cur_group;
@@ -77,7 +78,6 @@ void testApp::setup(){
 }
 
 void testApp::collided(GameObject *obj) {
-    cout << "callback yo " << ofRandom(10) << endl;
 }
 
 //--------------------------------------------------------------

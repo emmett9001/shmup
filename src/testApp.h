@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "GameObject.h"
-#include "BoardPartition.h"
+#include "BoardQuadrant.h"
 #include "ofxGamepadHandler.h"
 
 #define USE_OIS

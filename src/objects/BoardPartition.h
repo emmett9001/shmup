@@ -12,11 +12,12 @@
 #include <iostream>
 #include "GameObject.h"
 #include "ofMain.h"
-#include "BoardQuadrant.h"
 
 #endif /* defined(__emptyExample__BoardPartition__) */
 
 class Player;
+class BoardQuadrant;
+class BoardQuadrantCollisionDelegate;
 class BulletPatternGroup;
 
 class BoardPartition : public GameObject {

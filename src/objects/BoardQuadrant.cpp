@@ -14,6 +14,7 @@
 BoardQuadrant::BoardQuadrant(ofRectangle rect) {
     this->rect = rect;
     this->color = ofColor(ofRandom(256), ofRandom(256), ofRandom(256));
+    this->collisionSubscribers = vector<BoardQuadrantCollisionDelegate *>();
 }
 
 void BoardQuadrant::draw() {
@@ -29,21 +30,32 @@ void BoardQuadrant::update(float deltatime) {
     }
     
     if (this->contains_player) {
+        int count = 0;
         for(vector<BulletPattern*>::iterator it = this->pattern_group->patterns.begin(); it != this->pattern_group->patterns.end(); ++it) {
             BulletPattern* current = (BulletPattern *)*it;
             for(vector<Bullet>::iterator it2 = current->bullets.begin(); it2 != current->bullets.end(); ++it2) {
                 Bullet* current = (Bullet *)(&(*it2));
                 if (this->rect.inside(current->pos)) {
+                    count++;
+                    current->makeActiveForCollisionFiltering();
                     for(vector<Player*>::iterator it3 = (*(this->players)).begin(); it3 != (*(this->players)).end(); ++it3) {
                         Player* player = (Player *)*it3;
-                        if ((player->pos-current->pos).length() < player->hitbox_radius) {
-                            cout << "touch " << ofRandom(10) << endl;
-                            this->delegate->collided(current);
+                        if ((player->pos-current->pos).length() < 2*player->hitbox_radius) {
+                            for(vector<BoardQuadrantCollisionDelegate*>::iterator it4 = this->collisionSubscribers.begin();
+                                it4 != this->collisionSubscribers.end(); ++it4)
+                            {
+                                BoardQuadrantCollisionDelegate *subscriber = (BoardQuadrantCollisionDelegate *)*it4;
+                                subscriber->collided(current);
+                            }
+                            player->collided(current);
                         }
                     }
+                } else {
+                    current->makeInactiveForCollisionFiltering();
                 }
             }
         }
+        cout << "checked " << count << " bullets" << endl;
     }
 }
 

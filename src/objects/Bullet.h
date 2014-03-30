@@ -18,6 +18,7 @@
 class Bullet : public GameObject {
 public:
     float radius;
+    ofColor color;
     bool hasfired;
     
     Bullet();
@@ -26,4 +27,6 @@ public:
     void draw();
     void mouseMoved(int x, int y);
     void update(float deltatime);
+    void makeActiveForCollisionFiltering();
+    void makeInactiveForCollisionFiltering();
 };

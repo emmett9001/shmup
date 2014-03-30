@@ -13,6 +13,7 @@ void GameObject::update(float deltatime){
     // to account for slower framerates
     float scale = ceil(deltatime/MIN_DELTA);
     this->pos += this->dir*scale;
+    this->frame_lifetime += deltatime;
 }
 
 bool GameObject::is_onscreen(){
