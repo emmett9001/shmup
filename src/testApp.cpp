@@ -53,7 +53,9 @@ void testApp::setup(){
     groups.push_back(group);
     
     group = new BulletPatternGroup();
-    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1)));
+    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
+    group->addPattern(new TargetedBulletPattern(1, origin+ofVec2f(300, 300), 5, .1, 2, .5));
+    group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
     
     group = new BulletPatternGroup();
@@ -141,6 +143,12 @@ void testApp::buttonPressed(ofxGamepadButtonEvent& e)
 void testApp::buttonReleased(ofxGamepadButtonEvent& e)
 {
 	player->buttonReleased(e);
+    if (cur_group == groups.end() - 1) {
+        cur_group = groups.begin();
+    } else {
+        cur_group++;
+    }
+    board_partition->setGroupReference(*cur_group);
 }
 
 //--------------------------------------------------------------
