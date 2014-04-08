@@ -19,11 +19,19 @@ typedef enum _controlType {
     kControlTypeKeyboard, kControlTypeMouse, kControlTypeJoystick
 } controlType;
 
+struct pressedKeys {
+    bool up;
+    bool down;
+    bool left;
+    bool right;
+};
+
 class Player : public GameObject {
 public:
     float speed, hitbox_radius, collide_time, respawn_time;
     bool colliding, respawned;  // TODO put these into an enumerated type??
     ofColor color;
+    pressedKeys keys;
 
     Player(controlType control_type);
     void draw();

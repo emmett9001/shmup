@@ -15,6 +15,7 @@ Player::Player(controlType control_type) {
     this->respawned = false;
     this->speed = 2;
     this->color = ofColor(0, 255, 0);
+    this->keys = {false, false, false, false};
     if (control_type == kControlTypeJoystick) {
         this->speed = 3;
     }
@@ -46,22 +47,6 @@ void Player::update(float deltatime) {
     }
 }
 
-void Player::keyPressed(int key){
-    if (this->control_type != kControlTypeKeyboard){ return; }
-    if (key == 356) {  // left
-        this->dir.x = -speed;
-    }
-    if (key == 358) {  // right
-        this->dir.x = speed;
-    }
-    if (key == 357) {  // up
-        this->dir.y = -speed;
-    }
-    if (key == 359) {  // down
-        this->dir.y = speed;
-    }
-}
-
 void Player::collided(GameObject *obj) {
     if (!this->respawned) {
         this->color = ofColor(0, 0, 255);
@@ -70,13 +55,49 @@ void Player::collided(GameObject *obj) {
     }
 }
 
+void Player::keyPressed(int key){
+    if (this->control_type != kControlTypeKeyboard){ return; }
+    if (key == 356) {  // left
+        this->dir.x = -speed;
+        this->keys.left = true;
+    }
+    if (key == 358) {  // right
+        this->dir.x = speed;
+        this->keys.right = true;
+    }
+    if (key == 357) {  // up
+        this->dir.y = -speed;
+        this->keys.up = true;
+    }
+    if (key == 359) {  // down
+        this->keys.down = true;
+        this->dir.y = speed;
+    }
+}
+
 void Player::keyReleased(int key){
     if (this->control_type != kControlTypeKeyboard) { return; }
-    if (key == 356 || key == 358) {
-        this->dir.x = 0;
+    if (key == 356) {
+        if (!this->keys.right) {
+            this->dir.x = 0;
+        }
+        this->keys.left = false;
+    } if (key == 358) {
+        if (!this->keys.left) {
+            this->dir.x = 0;
+        }
+        this->keys.right = false;
     }
-    if (key == 357 || key == 359) {
-        this->dir.y = 0;
+    if (key == 357){
+        if (!this->keys.down) {
+            this->dir.y = 0;
+        }
+        this->keys.up = false;
+    } if (key == 359) {
+        if (!this->keys.up) {
+            this->dir.y = 0;
+        }
+        this->keys.down = false;
     }
 }
 

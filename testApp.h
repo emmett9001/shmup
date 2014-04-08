@@ -5,7 +5,6 @@
 #include "BoardQuadrant.h"
 #include "ofxGamepadHandler.h"
 
-
 class testApp : public ofBaseApp, public BoardQuadrantCollisionDelegate {
 	public:
 		void setup();
