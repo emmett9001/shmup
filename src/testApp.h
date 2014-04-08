@@ -5,7 +5,6 @@
 #include "BoardQuadrant.h"
 #include "ofxGamepadHandler.h"
 
-#define USE_OIS
 
 class testApp : public ofBaseApp, public BoardQuadrantCollisionDelegate {
 	public:
@@ -13,7 +12,7 @@ class testApp : public ofBaseApp, public BoardQuadrantCollisionDelegate {
 		void update();
 		void draw();
         void collided(GameObject *obj);
-		
+
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y);
@@ -23,7 +22,7 @@ class testApp : public ofBaseApp, public BoardQuadrantCollisionDelegate {
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-    
+
         void axisChanged(ofxGamepadAxisEvent &e);
         void buttonPressed(ofxGamepadButtonEvent &e);
         void buttonReleased(ofxGamepadButtonEvent &e);

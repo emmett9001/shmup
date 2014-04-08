@@ -17,32 +17,32 @@ BoardPartition *board_partition;
 //--------------------------------------------------------------
 void testApp::setup(){
     ofxGamepadHandler::get()->enableHotplug();
-    
+
     controlType control_type = kControlTypeKeyboard;
 	if(ofxGamepadHandler::get()->getNumPads()>0){
         ofxGamepad* pad = ofxGamepadHandler::get()->getGamepad(0);
         ofAddListener(pad->onAxisChanged, this, &testApp::axisChanged);
         ofAddListener(pad->onButtonPressed, this, &testApp::buttonPressed);
         ofAddListener(pad->onButtonReleased, this, &testApp::buttonReleased);
-        
+
         control_type = kControlTypeJoystick;
 	}
-    
+
     ofVec2f origin = ofVec2f(230,200);
     player = new Player(control_type);
-    
+
     board_partition = new BoardPartition();
     BulletPatternGroup *group;
-    
+
     group = new BulletPatternGroup();
     group->addPattern(new CyclicEllipseBulletPattern(30, origin, 7, .3));
     groups.push_back(group);
-    
+
     group = new BulletPatternGroup();
     group->addPattern(new RadialBulletPattern(20, origin, 10, .085));
     group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
     groups.push_back(group);
-    
+
     group = new BulletPatternGroup();
     float angle = 1;
     for(int i = 0; i < 10; i++){
@@ -51,22 +51,22 @@ void testApp::setup(){
         angle += (2*PI)/10;
     }
     groups.push_back(group);
-    
+
     group = new BulletPatternGroup();
     group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
     group->addPattern(new TargetedBulletPattern(1, origin+ofVec2f(300, 300), 5, .1, 2, .5));
     group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
-    
+
     group = new BulletPatternGroup();
     group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
     group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
-    
+
     cur_group = groups.begin();
-    
+
     players.push_back(player);
-    
+
     board_partition->setPlayersReference(&players);
     board_partition->setGroupReference(*cur_group);
     board_partition->setDelegate(this);
@@ -93,15 +93,15 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(255, 255, 255);
-    
+
     board_partition->draw();
-    
+
     int r = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
     int g = ofMap(mouseY, 0, ofGetHeight(), 0, 255);
     int b = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
-    
+
     player->draw();
-    
+
     ofSetColor(r, g, b);
     ofFill();
     (*cur_group)->draw();
@@ -153,7 +153,7 @@ void testApp::buttonReleased(ofxGamepadButtonEvent& e)
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-    
+
 }
 
 //--------------------------------------------------------------
@@ -177,6 +177,6 @@ void testApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::dragEvent(ofDragInfo dragInfo){
 
 }

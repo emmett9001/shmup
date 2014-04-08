@@ -28,7 +28,7 @@ void Player::mouseMoved(int x, int y) {
 
 void Player::update(float deltatime) {
     GameObject::update(deltatime);
-    
+
     if (this->colliding) {
         if (this->frame_lifetime > .5 + this->collide_time) {
             this->respawn_time = this->frame_lifetime;
@@ -37,7 +37,7 @@ void Player::update(float deltatime) {
             this->respawned = true;
         }
     }
-    
+
     if (this->respawned) {
         if (this->frame_lifetime > 1 + this->respawn_time) {
             this->color = ofColor(0, 255, 0);

@@ -24,7 +24,7 @@ public:
     float speed, hitbox_radius, collide_time, respawn_time;
     bool colliding, respawned;  // TODO put these into an enumerated type??
     ofColor color;
-    
+
     Player(controlType control_type);
     void draw();
     void collided(GameObject *obj);
