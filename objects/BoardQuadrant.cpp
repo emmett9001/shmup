@@ -28,7 +28,7 @@ void BoardQuadrant::update(float deltatime) {
         this->contains_player = this->rect.inside(player->pos);
         if (this->contains_player) { break; }
     }
-    
+
     if (this->contains_player) {
         int count = 0;
         for(vector<BulletPattern*>::iterator it = this->pattern_group->patterns.begin(); it != this->pattern_group->patterns.end(); ++it) {
@@ -55,7 +55,7 @@ void BoardQuadrant::update(float deltatime) {
                 }
             }
         }
-        cout << "checked " << count << " bullets" << endl;
+        //cout << "checked " << count << " bullets" << endl;
     }
 }
 

@@ -1,16 +1,19 @@
 #include "testApp.h"
+#include "Player.h"
+#include "PatternEditor.h"
+#include "BulletPatternGroup.h"
+#include "BoardPartition.h"
+
 #include "CyclicEllipseBulletPattern.h"
 #include "RadialBulletPattern.h"
 #include "FanOutBulletPattern.h"
 #include "OscillatingFanOutBulletPattern.h"
 #include "TargetedBulletPattern.h"
-#include "Player.h"
-#include "BulletPatternGroup.h"
-#include "BoardPartition.h"
 
 vector<BulletPatternGroup*> groups;
 vector<BulletPatternGroup*>::iterator cur_group;
 vector<Player*> players;
+PatternEditor *editor;
 Player *player;
 BoardPartition *board_partition;
 
@@ -64,6 +67,7 @@ void testApp::setup(){
     groups.push_back(group);
 
     cur_group = groups.begin();
+    editor = new PatternEditor(*cur_group);
 
     players.push_back(player);
 
@@ -101,10 +105,8 @@ void testApp::draw(){
     int b = ofMap(mouseX, 0, ofGetWidth(), 0, 255);
 
     player->draw();
-
-    ofSetColor(r, g, b);
-    ofFill();
     (*cur_group)->draw();
+    editor->draw();
 }
 
 //--------------------------------------------------------------
@@ -117,12 +119,19 @@ void testApp::keyPressed(int key){
             cur_group++;
         }
         board_partition->setGroupReference(*cur_group);
+        editor->group = *cur_group;
     }
+    editor->keyPressed(key);
 }
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
     player->keyReleased(key);
+    editor->keyReleased(key);
+}
+
+void testApp::mouseReleased(int x, int y, int button){
+    editor->mouseReleased(x, y, button);
 }
 
 //--------------------------------------------------------------
@@ -158,11 +167,6 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
 
 }
 

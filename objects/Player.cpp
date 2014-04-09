@@ -15,7 +15,6 @@ Player::Player(controlType control_type) {
     this->respawned = false;
     this->speed = 2;
     this->color = ofColor(0, 255, 0);
-    this->keys = {false, false, false, false};
     if (control_type == kControlTypeJoystick) {
         this->speed = 3;
     }
