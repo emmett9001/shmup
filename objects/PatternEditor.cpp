@@ -55,6 +55,7 @@ void PatternEditor::setPlayersReference(vector<Player*>* players) {
 }
 
 void PatternEditor::keyPressed(int key) {
+    cout << "key: " << key << endl;
     if (key == 49) {
         this->keys._1 = true;
         this->typeString = "Cyclic Ellipse";
@@ -72,6 +73,9 @@ void PatternEditor::keyPressed(int key) {
         this->typeString = "Oscillating Fan Out";
     } else if (key == 54) {
         this->keys._6 = true;
+    }
+    if (key == 100) {
+        this->group->patterns.clear();
     }
 }
 
