@@ -66,6 +66,9 @@ void testApp::setup(){
     group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
 
+    group = new BulletPatternGroup();
+    groups.push_back(group);
+
     cur_group = groups.begin();
     editor = new PatternEditor(*cur_group);
 
@@ -81,6 +84,7 @@ void testApp::setup(){
             currentPattern->setPlayersReference(&players);
         }
     }
+    editor->setPlayersReference(&players);
 }
 
 void testApp::collided(GameObject *obj) {
