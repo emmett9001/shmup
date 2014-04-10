@@ -22,6 +22,22 @@ PatternEditor::~PatternEditor()
 void PatternEditor::draw() {
     ofSetColor(0, 0, 0);
     ofDrawBitmapString(this->typeString, 100, 100, 0);
+
+    if (this->highlightedPattern != NULL) {
+        ofSetColor(255, 0, 0), 50;
+        ofRect(this->highlightedPattern->origin.x-25, this->highlightedPattern->origin.y-25, 50, 50);
+    }
+}
+
+void PatternEditor::mouseMoved(int x, int y){
+    this->highlightedPattern = NULL;
+    for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
+        BulletPattern* currentPattern = (BulletPattern *)*it2;
+        ofVec2f disp = currentPattern->origin - ofVec2f(x, y);
+        if (disp.length() < 50) {
+            this->highlightedPattern = currentPattern;
+        }
+    }
 }
 
 void PatternEditor::mouseReleased(int x, int y, int button){
@@ -47,6 +63,9 @@ void PatternEditor::mouseReleased(int x, int y, int button){
     for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
         BulletPattern* currentPattern = (BulletPattern *)*it2;
         currentPattern->setPlayersReference(this->players);
+    }
+    if (this->highlightedPattern != NULL) {
+        this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
     }
 }
 

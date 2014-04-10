@@ -141,6 +141,7 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y){
     player->mouseMoved(x, y);
+    editor->mouseMoved(x, y);
 }
 
 void testApp::axisChanged(ofxGamepadAxisEvent& e)

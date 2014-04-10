@@ -5,6 +5,7 @@
 #include "GameObject.h"
 
 class BulletPatternGroup;
+class BulletPattern;
 class Player;
 
 class PatternEditor
@@ -12,6 +13,7 @@ class PatternEditor
     public:
         BulletPatternGroup *group;
         pressedKeys keys;
+        BulletPattern *highlightedPattern;
         string typeString;
         vector<Player*>* players;
 
@@ -19,6 +21,7 @@ class PatternEditor
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);
+        void mouseMoved(int x, int y);
         void setPlayersReference(vector<Player*>* players);
         PatternEditor(BulletPatternGroup *group);
         virtual ~PatternEditor();
