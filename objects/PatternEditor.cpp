@@ -12,6 +12,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
 {
     this->group = group;
     this->typeString =  "";
+    this->editMode = kNormal;
 }
 
 PatternEditor::~PatternEditor()
@@ -92,6 +93,32 @@ void PatternEditor::keyPressed(int key) {
         this->typeString = "Oscillating Fan Out";
     } else if (key == 54) {
         this->keys._6 = true;
+    }
+    if (this->editMode == kNormal) {
+        if (key == 99) {  // c
+            this->editMode = kCountPending;
+        }
+    } else if (this->editMode == kCountPending) {
+        if (key == 99) {
+            this->editMode = kNormal;
+            int count = 0;
+            int length = this->pendingCount.size();
+            int i = length;
+            for(vector<int>::iterator it2 = this->pendingCount.begin(); it2 != this->pendingCount.end(); ++it2) {
+                int digit = (int)*it2;
+                int factor = pow(10, i-1);
+                count += digit*factor;
+                --i;
+            }
+            this->pendingCount.clear();
+            if (this->highlightedPattern != NULL) {
+                this->highlightedPattern->count = count;
+            }
+        }
+        if (key >= 48 && key <= 57) {
+            int keyVal = key - 48;
+            this->pendingCount.push_back(keyVal);
+        }
     }
     if (key == 100) {
         this->group->patterns.clear();
