@@ -28,6 +28,8 @@ struct pressedKeys {
     bool _4;
     bool _5;
     bool _6;
+    bool mouse1;
+    bool z;
 };
 
 class GameObject{

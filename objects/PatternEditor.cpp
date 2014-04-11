@@ -30,6 +30,16 @@ void PatternEditor::draw() {
     }
 }
 
+void PatternEditor::mousePressed(int x, int y, int button) {
+    this->keys.mouse1 = true;
+}
+
+void PatternEditor::mouseDragged(int x, int y, int button) {
+    if (this->keys.z && this->keys.mouse1 && this->highlightedPattern != NULL) {
+        this->highlightedPattern->origin = ofVec2f(x, y);
+    }
+}
+
 void PatternEditor::mouseMoved(int x, int y){
     this->highlightedPattern = NULL;
     for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
@@ -42,6 +52,7 @@ void PatternEditor::mouseMoved(int x, int y){
 }
 
 void PatternEditor::mouseReleased(int x, int y, int button){
+    this->keys.mouse1 = false;
     ofVec2f pos = ofVec2f(x, y);
     if(this->keys._1) {
         this->group->addPattern(new CyclicEllipseBulletPattern(30, pos, 7, .3));
@@ -65,7 +76,7 @@ void PatternEditor::mouseReleased(int x, int y, int button){
         BulletPattern* currentPattern = (BulletPattern *)*it2;
         currentPattern->setPlayersReference(this->players);
     }
-    if (this->highlightedPattern != NULL) {
+    if (!this->keys.z && this->highlightedPattern != NULL) {
         this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
     }
 }
@@ -93,6 +104,8 @@ void PatternEditor::keyPressed(int key) {
         this->typeString = "Oscillating Fan Out";
     } else if (key == 54) {
         this->keys._6 = true;
+    } else if (key == 122) {
+        this->keys.z = true;
     }
     if (this->editMode == kNormal) {
         if (key == 99) {  // c
@@ -144,5 +157,7 @@ void PatternEditor::keyReleased(int key) {
     } else if (key == 54) {
         this->keys._6 = false;
         this->typeString = "";
+    } else if (key == 122) {
+        this->keys.z = false;
     }
 }

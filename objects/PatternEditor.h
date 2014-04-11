@@ -24,6 +24,8 @@ class PatternEditor
         vector<Player*>* players;
 
         void mouseReleased(int x, int y, int button);
+        void mousePressed(int x, int y, int button);
+        void mouseDragged(int x, int y, int button);
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);
