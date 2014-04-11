@@ -12,10 +12,12 @@
 
 BoardPartition::BoardPartition() {
     this->quads = vector<BoardQuadrant *>();
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 0, ofGetWidth()/2, ofGetHeight()/2)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/2)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, ofGetHeight()/2, ofGetWidth()/2, ofGetHeight()/2)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, ofGetHeight()/2, ofGetWidth()/2, ofGetHeight()/2)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 0, ofGetWidth()/2, ofGetHeight()/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(0, ofGetHeight()/3, ofGetWidth()/2, ofGetHeight()/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, ofGetHeight()/3, ofGetWidth()/2, ofGetHeight()/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 2*(ofGetHeight()/3), ofGetWidth()/2, ofGetHeight()/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 2*(ofGetHeight()/3), ofGetWidth()/2, ofGetHeight()/3)));
 }
 
 void BoardPartition::draw() {
