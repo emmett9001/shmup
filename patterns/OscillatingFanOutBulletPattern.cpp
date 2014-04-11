@@ -8,6 +8,8 @@
 
 #include "OscillatingFanOutBulletPattern.h"
 
+const string OscillatingFanOutBulletPattern::SLUG = "OSCILLATING_FANOUT";
+
 OscillatingFanOutBulletPattern::OscillatingFanOutBulletPattern()
 : FanOutBulletPattern()
 {
@@ -27,4 +29,8 @@ void OscillatingFanOutBulletPattern::volley() {
     } else {
         this->count = orig_count;
     }
+}
+
+string OscillatingFanOutBulletPattern::describe() {
+    return OscillatingFanOutBulletPattern::SLUG;
 }

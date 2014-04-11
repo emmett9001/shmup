@@ -8,6 +8,8 @@
 
 #include "FanOutBulletPattern.h"
 
+const string FanOutBulletPattern::SLUG = "FANOUT";
+
 FanOutBulletPattern::FanOutBulletPattern()
     : BulletPattern(30)
 {
@@ -51,4 +53,8 @@ void FanOutBulletPattern::volley() {
         angle += this->width/this->count;
     }
     this->direction.rotate(this->rotation_speed*180/PI);
+}
+
+string FanOutBulletPattern::describe() {
+    return FanOutBulletPattern::SLUG;
 }

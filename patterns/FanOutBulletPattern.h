@@ -20,11 +20,13 @@ public:
     float width;  // fanout angle in radians
     float rotation_speed;  // amount to rotate per volley in radians
     ofVec2f direction;  // normalized vector indicating direction of fanout
-    
+
+    static const string SLUG;
     FanOutBulletPattern();
     FanOutBulletPattern(float width, ofVec2f direction);
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction);
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction, float rotation_speed);
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction, float rotation_speed, float period, float duty);
     void volley();
+    string describe();
 };

@@ -9,6 +9,8 @@
 #include "BulletPattern.h"
 #include "Player.h"
 
+const string BulletPattern::SLUG = "GENERIC";
+
 BulletPattern::BulletPattern(){
     this->init(30, ofVec2f(0,0), .1, .6, -1, .5);
 }
@@ -60,7 +62,7 @@ void BulletPattern::update(float deltatime){
             ++it;
         }
     }
-    
+
     float boundary = this->period*this->duty;
     if (this->isrunning) {
         boundary = this->period-(this->period*this->duty);
@@ -74,7 +76,7 @@ void BulletPattern::update(float deltatime){
     if (!this->isrunning) {
         return;
     }
-    
+
     if (this->frame_lifetime > this->last_volley+this->volley_timeout) {
         this->last_volley = this->frame_lifetime;
         this->volley();

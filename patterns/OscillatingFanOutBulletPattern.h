@@ -16,7 +16,9 @@
 
 class OscillatingFanOutBulletPattern : public FanOutBulletPattern {
 public:
+    static const string SLUG;
     OscillatingFanOutBulletPattern();
     OscillatingFanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, ofVec2f direction);
     void volley();
+    string describe();
 };

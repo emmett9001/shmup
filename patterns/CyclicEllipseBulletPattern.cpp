@@ -8,6 +8,8 @@
 
 #include "CyclicEllipseBulletPattern.h"
 
+const string CyclicEllipseBulletPattern::SLUG = "CYCLIC_ELLIPSE";
+
 CyclicEllipseBulletPattern::CyclicEllipseBulletPattern(int count, ofVec2f origin)
     : BulletPattern(count, origin)
 {
@@ -23,7 +25,7 @@ void CyclicEllipseBulletPattern::volley(){
     static float mult = 1;
     float radius = 20;
     float speed_multiplier;
-    
+
     for(int i = 0; i < this->count; i++){
         ofVec2f thispos = ofVec2f(radius*sin(angle),radius*cos(angle)*mult);
         speed_multiplier = this->bulletspeed*.01;
@@ -33,4 +35,8 @@ void CyclicEllipseBulletPattern::volley(){
     }
     angle++;
     mult = 3*sin(ofGetElapsedTimef());
+}
+
+string CyclicEllipseBulletPattern::describe() {
+    return CyclicEllipseBulletPattern::SLUG;
 }

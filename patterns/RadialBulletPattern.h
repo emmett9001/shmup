@@ -16,7 +16,9 @@
 
 class RadialBulletPattern : public BulletPattern{
 public:
+    static const string SLUG;
     RadialBulletPattern(int count, ofVec2f origin);
     RadialBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
     void volley();
+    string describe();
 };
