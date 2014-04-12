@@ -136,10 +136,13 @@ void PatternEditor::keyPressed(int key) {
     if (key == 100) {  // d
         this->group->patterns.clear();
     } else if (key == 119) {  // w
+        ofstream out("dump.txt");
         for(vector<BulletPattern*>::iterator it = this->group->patterns.begin(); it != this->group->patterns.end(); ++it) {
             BulletPattern* current = (BulletPattern *)*it;
+            out << current->describe() << endl;
             cout << current->describe() << endl;
         }
+        out.close();
     }
 }
 

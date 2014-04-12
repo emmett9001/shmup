@@ -38,5 +38,8 @@ void TargetedBulletPattern::volley(){
 }
 
 string TargetedBulletPattern::describe() {
-    return TargetedBulletPattern::SLUG;
+    ostringstream stream;
+    stream << TargetedBulletPattern::SLUG << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->count;
+    return stream.str();
 }

@@ -32,5 +32,8 @@ void OscillatingFanOutBulletPattern::volley() {
 }
 
 string OscillatingFanOutBulletPattern::describe() {
-    return OscillatingFanOutBulletPattern::SLUG;
+    ostringstream stream;
+    stream << OscillatingFanOutBulletPattern::SLUG << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->count;
+    return stream.str();
 }

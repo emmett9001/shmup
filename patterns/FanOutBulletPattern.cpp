@@ -56,5 +56,8 @@ void FanOutBulletPattern::volley() {
 }
 
 string FanOutBulletPattern::describe() {
-    return FanOutBulletPattern::SLUG;
+    ostringstream stream;
+    stream << FanOutBulletPattern::SLUG << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->count;
+    return stream.str();
 }

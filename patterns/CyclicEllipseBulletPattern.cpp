@@ -38,5 +38,8 @@ void CyclicEllipseBulletPattern::volley(){
 }
 
 string CyclicEllipseBulletPattern::describe() {
-    return CyclicEllipseBulletPattern::SLUG;
+    ostringstream stream;
+    stream << CyclicEllipseBulletPattern::SLUG << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->count;
+    return stream.str();
 }
