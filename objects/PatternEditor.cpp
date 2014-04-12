@@ -133,8 +133,13 @@ void PatternEditor::keyPressed(int key) {
             this->pendingCount.push_back(keyVal);
         }
     }
-    if (key == 100) {
+    if (key == 100) {  // d
         this->group->patterns.clear();
+    } else if (key == 119) {  // w
+        for(vector<BulletPattern*>::iterator it = this->group->patterns.begin(); it != this->group->patterns.end(); ++it) {
+            BulletPattern* current = (BulletPattern *)*it;
+            cout << current->describe() << endl;
+        }
     }
 }
 
