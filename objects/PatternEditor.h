@@ -26,13 +26,13 @@ class PatternEditor
         void mouseReleased(int x, int y, int button);
         void mousePressed(int x, int y, int button);
         void mouseDragged(int x, int y, int button);
+        void loadSketch();
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);
         void mouseMoved(int x, int y);
         void setPlayersReference(vector<Player*>* players);
         PatternEditor(BulletPatternGroup *group);
-        virtual ~PatternEditor();
 };
 
 #endif // PATTERNEDITOR_H
