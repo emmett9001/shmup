@@ -150,7 +150,7 @@ void PatternEditor::keyPressed(int key) {
             int i = length;
             for(vector<int>::iterator it2 = this->pendingCount.begin(); it2 != this->pendingCount.end(); ++it2) {
                 int digit = (int)*it2;
-                int factor = pow(10, i-1);
+                int factor = pow((float)10, ((float)i-1));
                 count += digit*factor;
                 --i;
             }
