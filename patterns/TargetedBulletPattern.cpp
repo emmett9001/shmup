@@ -9,7 +9,13 @@
 #include "TargetedBulletPattern.h"
 #include "Player.h"
 
-const string TargetedBulletPattern::SLUG = "TARGETED";
+REGISTER_DEF_TYPE(TargetedBulletPattern);
+const string TargetedBulletPattern::SLUG = "TargetedBulletPattern";
+
+TargetedBulletPattern::TargetedBulletPattern()
+: BulletPattern(0, ofVec2f(0, 0), 5, .1, 2, .5)
+{
+}
 
 TargetedBulletPattern::TargetedBulletPattern(int count, ofVec2f origin)
 : BulletPattern(count, origin)

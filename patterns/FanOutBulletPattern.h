@@ -29,4 +29,6 @@ public:
     FanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float width, ofVec2f direction, float rotation_speed, float period, float duty);
     void volley();
     string describe();
+private:
+    REGISTER_DEC_TYPE(FanOutBulletPattern);
 };

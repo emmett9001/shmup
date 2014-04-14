@@ -21,4 +21,6 @@ public:
     OscillatingFanOutBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, ofVec2f direction);
     void volley();
     string describe();
+private:
+    REGISTER_DEC_TYPE(OscillatingFanOutBulletPattern);
 };

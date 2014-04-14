@@ -17,9 +17,12 @@
 class TargetedBulletPattern : public BulletPattern{
 public:
     static const string SLUG;
+    TargetedBulletPattern();
     TargetedBulletPattern(int count, ofVec2f origin);
     TargetedBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
     TargetedBulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
     void volley();
     string describe();
+private:
+    REGISTER_DEC_TYPE(TargetedBulletPattern);
 };

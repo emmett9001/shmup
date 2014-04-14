@@ -30,6 +30,5 @@ void BulletPatternGroup::addPattern(BulletPattern *pattern) {
     this->patterns.push_back(pattern);
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        cout << current->describe() << endl;
     }
 }

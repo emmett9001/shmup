@@ -18,39 +18,34 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
 }
 
 void PatternEditor::loadSketch() {
-    string line;
-    int i = 0;
+    string line, slug, token, delimiter = ":";
+    int i = 0, count, x, y;
     ifstream myfile ("dump.txt");
-    cout << "#############" << endl;
-    string delimiter = ":";
     ofVec2f origin;
-    int count, x, y;
+    BulletPattern *pattern;
     if (myfile.is_open()) {
         while (getline(myfile,line)) {
-            std::cout << line << std::endl;
             i = 0;
             size_t pos = 0;
-            std::string token;
             while (i != 3) {
                 pos = line.find(delimiter);
                 token = line.substr(0, pos);
-                cout << "token: " << token << endl;
-                cout << "i: " << i << endl;
-                if (i == 1) {
+                if (i == 0) {
+                    slug = token;
+                } else if (i == 1) {
                     istringstream(token.substr(0, token.find(","))) >> x;
                     istringstream(token.substr(token.find(",") + 1, token.length())) >> y;
                     origin = ofVec2f(x, y);
-
-                }
-                if (i == 2) {
+                } else if (i == 2) {
                     istringstream(token) >> count;
                 }
-                std::cout << token << std::endl;
                 line.erase(0, pos + delimiter.length());
                 ++i;
             }
-            cout << "origin: " << origin.x << " , " << origin.y << endl;
-            cout << "count: " << count << endl;
+            pattern = (*BulletPatternFactory::creator_map)[slug]();
+            pattern->count = count;
+            pattern->origin = origin;
+            this->group->addPattern(pattern);
         }
         myfile.close();
     }

@@ -8,10 +8,11 @@
 
 #include "OscillatingFanOutBulletPattern.h"
 
-const string OscillatingFanOutBulletPattern::SLUG = "OSCILLATING_FANOUT";
+REGISTER_DEF_TYPE(OscillatingFanOutBulletPattern);
+const string OscillatingFanOutBulletPattern::SLUG = "OscillatingFanOutBulletPattern";
 
 OscillatingFanOutBulletPattern::OscillatingFanOutBulletPattern()
-: FanOutBulletPattern()
+: FanOutBulletPattern(0, ofVec2f(0, 0), 5, .2, 0, ofVec2f(0, 1))
 {
 }
 

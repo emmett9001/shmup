@@ -8,7 +8,13 @@
 
 #include "RadialBulletPattern.h"
 
-const string RadialBulletPattern::SLUG = "RADIAL";
+REGISTER_DEF_TYPE(RadialBulletPattern);
+const string RadialBulletPattern::SLUG = "RadialBulletPattern";
+
+RadialBulletPattern::RadialBulletPattern()
+: BulletPattern(0, ofVec2f(0, 0), 10, .085)
+{
+}
 
 RadialBulletPattern::RadialBulletPattern(int count, ofVec2f origin)
     : BulletPattern(count, origin)

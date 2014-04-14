@@ -8,10 +8,11 @@
 
 #include "FanOutBulletPattern.h"
 
-const string FanOutBulletPattern::SLUG = "FANOUT";
+REGISTER_DEF_TYPE(FanOutBulletPattern);
+const string FanOutBulletPattern::SLUG = "FanOutBulletPattern";
 
 FanOutBulletPattern::FanOutBulletPattern()
-    : BulletPattern(30)
+    : BulletPattern(10, origin, 5, .2, 1, .5), width(PI/2), direction(ofVec2f(0, 1)), rotation_speed(0)
 {
 }
 

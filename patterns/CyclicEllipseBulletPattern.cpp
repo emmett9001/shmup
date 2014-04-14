@@ -8,7 +8,13 @@
 
 #include "CyclicEllipseBulletPattern.h"
 
-const string CyclicEllipseBulletPattern::SLUG = "CYCLIC_ELLIPSE";
+REGISTER_DEF_TYPE(CyclicEllipseBulletPattern);
+const string CyclicEllipseBulletPattern::SLUG = "CyclicEllipseBulletPattern";
+
+CyclicEllipseBulletPattern::CyclicEllipseBulletPattern()
+: BulletPattern()
+{
+}
 
 CyclicEllipseBulletPattern::CyclicEllipseBulletPattern(int count, ofVec2f origin)
     : BulletPattern(count, origin)

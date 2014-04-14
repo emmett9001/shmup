@@ -9,10 +9,11 @@
 #include "BulletPattern.h"
 #include "Player.h"
 
+map_type *BulletPatternFactory::creator_map;
 const string BulletPattern::SLUG = "GENERIC";
 
 BulletPattern::BulletPattern(){
-    this->init(30, ofVec2f(0,0), .1, .6, -1, .5);
+    this->init(30, ofVec2f(0,0), 5, .6, -1, .5);
 }
 
 BulletPattern::BulletPattern(int count) {
