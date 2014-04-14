@@ -14,6 +14,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
     this->typeString =  "";
     this->editMode = kNormal;
     this->loadSketch();
+    this->keys = {};
 }
 
 void PatternEditor::loadSketch() {
