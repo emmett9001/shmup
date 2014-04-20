@@ -14,11 +14,13 @@
 #include "Bullet.h"
 
 class Player;
+class Mover;
 
 class BulletPattern{
 public:
     vector<Bullet> bullets;
     vector<Player*>* players;
+    vector<Mover*> movers;
     ofVec2f origin;
     float volley_timeout, bulletspeed, period, duty;
     bool isrunning;
@@ -35,6 +37,7 @@ public:
     void draw();
     void update(float deltatime);
     void start();
+    void addMover(Mover *mover);
     void setPlayersReference(vector<Player*>* players);
 
 private:

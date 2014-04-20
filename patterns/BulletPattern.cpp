@@ -7,6 +7,7 @@
 //
 
 #include "BulletPattern.h"
+#include "StraightLineMover.h"
 #include "Player.h"
 
 map_type *BulletPatternFactory::creator_map;
@@ -42,6 +43,7 @@ void BulletPattern::init(int count, ofVec2f origin, float bulletspeed, float vol
     this->isrunning = false;
     this->period = period;
     this->duty = duty;
+    this->movers = vector<Mover*>();
     this->start();
 }
 
@@ -51,6 +53,13 @@ void BulletPattern::start(){
 
 void BulletPattern::setPlayersReference(vector<Player*>* players) {
     this->players = players;
+}
+
+void BulletPattern::addMover(Mover *mover) {
+    if (this->movers.size() > 0) {
+        ((Mover *)(this->movers.front()))->next = mover;
+    }
+    this->movers.push_back(mover);
 }
 
 void BulletPattern::update(float deltatime){
@@ -81,6 +90,11 @@ void BulletPattern::update(float deltatime){
     if (this->frame_lifetime > this->last_volley+this->volley_timeout) {
         this->last_volley = this->frame_lifetime;
         this->volley();
+    }
+
+    for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
+        Mover *mover = (Mover *)*it;
+        mover->update(deltatime);
     }
 }
 

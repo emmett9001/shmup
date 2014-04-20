@@ -41,6 +41,7 @@ void testApp::setup(){
     group = new BulletPatternGroup();
     groups.push_back(group);
 
+    /*
     group = new BulletPatternGroup();
     group->addPattern(new CyclicEllipseBulletPattern(30, origin, 7, .3));
     groups.push_back(group);
@@ -69,6 +70,7 @@ void testApp::setup(){
     group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
     group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
+    */
 
     cur_group = groups.begin();
     editor = new PatternEditor(*cur_group);

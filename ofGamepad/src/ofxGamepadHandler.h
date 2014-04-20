@@ -35,7 +35,7 @@ public:
 	void update();
 	void draw(int x, int y);
 	void enableHotplug(int interval=1500); //interval in milliseconds the system looks for new gamepads
-	
+
 	ofEvent<ofxGamepadEvent> onGamepadPlug;
 	ofEvent<ofxGamepadEvent> onGamepadUnplug;
 
@@ -50,7 +50,7 @@ private:
 
 	static ofxGamepadHandler* singleton;
 	static bool hasSingleton;
-	
+
 	bool hasHotplug;
 	int hotplugNext;
 	int hotplugInterval;
