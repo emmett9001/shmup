@@ -38,6 +38,7 @@ public:
     void update(float deltatime);
     void start();
     void addMover(Mover *mover);
+    void clearMovers();
     void setPlayersReference(vector<Player*>* players);
 
 private:

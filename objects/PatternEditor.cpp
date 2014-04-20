@@ -76,6 +76,7 @@ void PatternEditor::draw() {
 
 void PatternEditor::mousePressed(int x, int y, int button) {
     this->keys.mouse1 = true;
+    this->mouseDownPos = ofVec2f(x, y);
 }
 
 void PatternEditor::mouseDragged(int x, int y, int button) {
@@ -120,7 +121,9 @@ void PatternEditor::mouseReleased(int x, int y, int button){
     } else if (this->mainMode == kMover) {
         if (this->highlightedPattern != NULL) {
             if (this->keys._1) {
-                this->highlightedPattern->addMover(new StraightLineMover(ofVec2f(1, 0)));
+                this->highlightedPattern->addMover(new StraightLineMover((ofVec2f(x, y)-this->mouseDownPos)/100));
+            } else {
+                this->highlightedPattern->clearMovers();
             }
         }
     }

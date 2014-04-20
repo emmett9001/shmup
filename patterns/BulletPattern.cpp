@@ -63,6 +63,10 @@ void BulletPattern::addMover(Mover *mover) {
     this->movers.push_back(mover);
 }
 
+void BulletPattern::clearMovers() {
+    this->movers.clear();
+}
+
 void BulletPattern::update(float deltatime){
     vector<Bullet>::iterator it = bullets.begin();
     while(it != bullets.end()){

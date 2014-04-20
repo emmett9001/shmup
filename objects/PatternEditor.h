@@ -22,6 +22,7 @@ class PatternEditor
         BulletPattern *highlightedPattern;
         string typeString;
         vector<Player*>* players;
+        ofVec2f mouseDownPos;
 
         void mouseReleased(int x, int y, int button);
         void mousePressed(int x, int y, int button);
