@@ -6,6 +6,8 @@
 #include "OscillatingFanOutBulletPattern.h"
 #include "TargetedBulletPattern.h"
 
+#include "StraightLineMover.h"
+
 #include "BulletPatternGroup.h"
 
 PatternEditor::PatternEditor(BulletPatternGroup *group)
@@ -112,11 +114,14 @@ void PatternEditor::mouseReleased(int x, int y, int button){
         if(this->keys._5) {
             this->group->addPattern(new OscillatingFanOutBulletPattern(10, pos, 5, .2, ofVec2f(0, 1)));
         }
-        if(this->keys._6) {
-
-        }
         if (!this->keys.z && this->highlightedPattern != NULL) {
             this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
+        }
+    } else if (this->mainMode == kMover) {
+        if (this->highlightedPattern != NULL) {
+            if (this->keys._1) {
+                this->highlightedPattern->addMover(new StraightLineMover(ofVec2f(1, 0)));
+            }
         }
     }
     for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
@@ -147,15 +152,15 @@ void PatternEditor::keyPressed(int key) {
         this->keys.z = true;
     }
     if (this->mainMode == kPattern) {
-        if (key == 49) {
+        if (this->keys._1) {
             this->typeString = "Cyclic Ellipse";
-        } else if (key == 50) {
+        } else if (this->keys._2) {
             this->typeString = "Radial";
-        } else if (key ==  51) {
+        } else if (this->keys._3) {
             this->typeString = "Fan Out";
-        } else if (key == 52) {
+        } else if (this->keys._4) {
             this->typeString = "Targeted";
-        } else if (key == 53) {
+        } else if (this->keys._5) {
             this->typeString = "Oscillating Fan Out";
         }
         if (this->editMode == kNormal) {
@@ -183,6 +188,10 @@ void PatternEditor::keyPressed(int key) {
                 int keyVal = key - 48;
                 this->pendingCount.push_back(keyVal);
             }
+        }
+    } else if (this->mainMode) {
+        if (this->keys._1) {
+            this->typeString = "Straight Line";
         }
     }
     if (key == 100) {  // d
