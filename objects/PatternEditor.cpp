@@ -228,7 +228,6 @@ void PatternEditor::keyPressed(int key) {
         }
     } else if (key == 112) {  // p
         this->pause();
-        cout << "omg" << endl;
     }
 }
 

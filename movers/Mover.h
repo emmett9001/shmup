@@ -14,6 +14,7 @@ class Mover
         float duration;
         ofVec2f origin;
         Mover *next;
+        static const string SLUG;
 
         void init(BulletPattern *attached);
         Mover();
@@ -21,6 +22,7 @@ class Mover
         void update(float deltatime);
         void attach(BulletPattern *host);
         virtual void move(float deltatime) = 0;
+        virtual string describe() = 0;
     protected:
     private:
 };

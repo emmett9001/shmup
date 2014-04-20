@@ -1,6 +1,8 @@
 #include "StraightLineMover.h"
 #include "BulletPattern.h"
 
+const string StraightLineMover::SLUG = "StraightLineMover";
+
 StraightLineMover::StraightLineMover() : Mover()
 {
 }
@@ -17,4 +19,8 @@ StraightLineMover::StraightLineMover(BulletPattern *attached, ofVec2f direction)
 
 void StraightLineMover::move(float timedelta) {
     this->attached->origin += this->direction;
+}
+
+string StraightLineMover::describe() {
+    return StraightLineMover::SLUG;
 }

@@ -1,6 +1,8 @@
 #include "CyclicBoundedStraightLineMover.h"
 #include "BulletPattern.h"
 
+const string CyclicBoundedStraightLineMover::SLUG = "CyclicBoundedStraightLineMover";
+
 CyclicBoundedStraightLineMover::CyclicBoundedStraightLineMover() : StraightLineMover()
 {
 }
@@ -20,4 +22,8 @@ void CyclicBoundedStraightLineMover::move(float timedelta) {
         this->direction *= -1;
     }
     this->attached->origin += this->direction;
+}
+
+string CyclicBoundedStraightLineMover::describe() {
+    return CyclicBoundedStraightLineMover::SLUG;
 }
