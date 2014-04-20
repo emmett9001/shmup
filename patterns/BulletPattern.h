@@ -33,6 +33,7 @@ public:
     BulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout);
     BulletPattern(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
     virtual string describe() = 0;
+    string _describe(string slug);
     void init(int count, ofVec2f origin, float bulletspeed, float volley_timeout, float period, float duty);
     void draw();
     void update(float deltatime);

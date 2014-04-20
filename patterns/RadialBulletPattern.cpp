@@ -42,8 +42,5 @@ void RadialBulletPattern::volley(){
 }
 
 string RadialBulletPattern::describe() {
-    ostringstream stream;
-    stream << RadialBulletPattern::SLUG << ":" << this->origin.x << "," << this->origin.y;
-    stream << ":" << this->count;
-    return stream.str();
+    return BulletPattern::_describe(RadialBulletPattern::SLUG);
 }

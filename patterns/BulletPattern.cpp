@@ -115,3 +115,10 @@ void BulletPattern::draw(){
         it->draw();
     }
 }
+
+string BulletPattern::_describe(string slug) {
+    ostringstream stream;
+    stream << slug << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->count;
+    return stream.str();
+}
