@@ -16,7 +16,14 @@ void Mover::init(BulletPattern *attached) {
     this->paused = false;
     this->step = 0;
     this->next = NULL;
-    this->attached = attached;
+    this->attach(attached);
+}
+
+void Mover::attach(BulletPattern *host) {
+    this->attached = host;
+    if (this->attached != NULL) {
+        this->origin = this->attached->origin;
+    }
 }
 
 void Mover::update(float timedelta) {

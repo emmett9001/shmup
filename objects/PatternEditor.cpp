@@ -7,6 +7,7 @@
 #include "TargetedBulletPattern.h"
 
 #include "StraightLineMover.h"
+#include "CyclicBoundedStraightLineMover.h"
 
 #include "BulletPatternGroup.h"
 
@@ -106,6 +107,7 @@ void PatternEditor::mouseMoved(int x, int y){
 void PatternEditor::mouseReleased(int x, int y, int button){
     this->keys.mouse1 = false;
     ofVec2f pos = ofVec2f(x, y);
+    ofVec2f mouseDragDisp = ofVec2f(x, y) - this->mouseDownPos;
     if (this->mainMode == kPattern) {
         if(this->keys._1) {
             this->group->addPattern(new CyclicEllipseBulletPattern(30, pos, 7, .3));
@@ -128,7 +130,9 @@ void PatternEditor::mouseReleased(int x, int y, int button){
     } else if (this->mainMode == kMover) {
         if (this->highlightedPattern != NULL) {
             if (this->keys._1) {
-                this->highlightedPattern->addMover(new StraightLineMover((ofVec2f(x, y)-this->mouseDownPos)/100));
+                this->highlightedPattern->addMover(new StraightLineMover(mouseDragDisp/100));
+            } else if (this->keys._2) {
+                this->highlightedPattern->addMover(new CyclicBoundedStraightLineMover(mouseDragDisp/100, mouseDragDisp.length()));
             } else {
                 this->highlightedPattern->clearMovers();
             }
@@ -202,6 +206,8 @@ void PatternEditor::keyPressed(int key) {
     } else if (this->mainMode) {
         if (this->keys._1) {
             this->typeString = "Straight Line";
+        } else if (this->keys._2) {
+            this->typeString = "Bounded Cyclic Straight Line";
         }
     }
     if (key == 100) {  // d
