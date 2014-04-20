@@ -23,11 +23,13 @@ class PatternEditor
         string typeString;
         vector<Player*>* players;
         ofVec2f mouseDownPos;
+        bool paused;
 
         void mouseReleased(int x, int y, int button);
         void mousePressed(int x, int y, int button);
         void mouseDragged(int x, int y, int button);
         void loadSketch();
+        void pause();
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);

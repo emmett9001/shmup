@@ -16,8 +16,14 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
     this->typeString =  "";
     this->mainMode = kPattern;
     this->editMode = kNormal;
+    this->paused = false;
     this->loadSketch();
     this->keys = {};
+}
+
+void PatternEditor::pause() {
+    this->paused = !this->paused;
+    this->group->pause();
 }
 
 void PatternEditor::loadSketch() {
@@ -213,6 +219,9 @@ void PatternEditor::keyPressed(int key) {
         } else if (this->mainMode == kMover) {
             this->mainMode = kPattern;
         }
+    } else if (key == 112) {  // p
+        this->pause();
+        cout << "omg" << endl;
     }
 }
 

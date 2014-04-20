@@ -43,12 +43,17 @@ void BulletPattern::init(int count, ofVec2f origin, float bulletspeed, float vol
     this->isrunning = false;
     this->period = period;
     this->duty = duty;
+    this->paused = false;
     this->movers = vector<Mover*>();
     this->start();
 }
 
 void BulletPattern::start(){
     this->isrunning = true;
+}
+
+void BulletPattern::pause() {
+    this->paused = !this->paused;
 }
 
 void BulletPattern::setPlayersReference(vector<Player*>* players) {
@@ -68,6 +73,8 @@ void BulletPattern::clearMovers() {
 }
 
 void BulletPattern::update(float deltatime){
+    if (this->paused) return;
+
     vector<Bullet>::iterator it = bullets.begin();
     while(it != bullets.end()){
         it->update(deltatime);
@@ -87,6 +94,11 @@ void BulletPattern::update(float deltatime){
         this->isrunning = !this->isrunning;
     }
 
+    for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
+        Mover *mover = (Mover *)*it;
+        mover->update(deltatime);
+    }
+
     this->frame_lifetime += deltatime;
     if (!this->isrunning) {
         return;
@@ -95,11 +107,6 @@ void BulletPattern::update(float deltatime){
     if (this->frame_lifetime > this->last_volley+this->volley_timeout) {
         this->last_volley = this->frame_lifetime;
         this->volley();
-    }
-
-    for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
-        Mover *mover = (Mover *)*it;
-        mover->update(deltatime);
     }
 }
 

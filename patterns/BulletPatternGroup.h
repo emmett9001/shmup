@@ -18,10 +18,12 @@
 class BulletPatternGroup {
 public:
     vector<BulletPattern *> patterns;
-    
+    bool paused;
+
     BulletPatternGroup();
-    
+
     void update(float deltatime);
     void draw();
     void addPattern(BulletPattern *pattern);
+    void pause();
 };
