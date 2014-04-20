@@ -10,6 +10,5 @@ StraightLineMover::StraightLineMover(BulletPattern *attached, ofVec2f direction)
 }
 
 void StraightLineMover::move(float timedelta) {
-
     this->attached->origin += direction;
 }

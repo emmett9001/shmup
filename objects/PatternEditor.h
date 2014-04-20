@@ -9,7 +9,7 @@ class BulletPattern;
 class Player;
 
 enum kEditMode {
-    kCountPending, kNormal
+    kPattern, kMover, kCountPending, kNormal
 };
 
 class PatternEditor
@@ -18,7 +18,7 @@ class PatternEditor
         BulletPatternGroup *group;
         pressedKeys keys;
         vector<int> pendingCount;
-        kEditMode editMode;
+        kEditMode editMode, mainMode;
         BulletPattern *highlightedPattern;
         string typeString;
         vector<Player*>* players;
