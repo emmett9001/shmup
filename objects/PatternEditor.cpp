@@ -14,6 +14,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
 {
     this->group = group;
     this->typeString =  "";
+    this->highlightedPattern = NULL;
     this->mainMode = kPattern;
     this->editMode = kNormal;
     this->paused = false;
