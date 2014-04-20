@@ -1,7 +1,11 @@
 #include "StraightLineMover.h"
 #include "BulletPattern.h"
 
-StraightLineMover::StraightLineMover()
+StraightLineMover::StraightLineMover() : Mover()
+{
+}
+
+StraightLineMover::StraightLineMover(ofVec2f direction) : Mover(), direction(direction)
 {
 }
 

@@ -3,6 +3,7 @@
 
 Mover::Mover()
 {
+    this->init(NULL);
 }
 
 Mover::Mover(BulletPattern *attached) {
