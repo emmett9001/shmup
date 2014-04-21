@@ -20,7 +20,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
     this->editMode = kNormal;
     this->paused = false;
     this->loadSketch();
-    this->keys = {};
+    this->keys = pressedKeys();
 }
 
 void PatternEditor::pause() {
