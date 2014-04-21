@@ -35,3 +35,7 @@ void Mover::update(float timedelta) {
         this->move(timedelta);
     }
 }
+
+string Mover::_describe(string slug) {
+    return slug;
+}

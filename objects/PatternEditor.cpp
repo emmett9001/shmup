@@ -218,6 +218,10 @@ void PatternEditor::keyPressed(int key) {
             BulletPattern* current = (BulletPattern *)*it;
             out << current->describe() << endl;
             cout << current->describe() << endl;
+            for(vector<Mover *>::iterator it = current->movers.begin(); it != current->movers.end(); it++){
+                Mover *mover = (Mover *)*it;
+                cout << mover->describe() << endl;
+            }
         }
         out.close();
     } else if (key == 109) {  // m

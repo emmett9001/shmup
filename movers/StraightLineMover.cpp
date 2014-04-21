@@ -22,5 +22,5 @@ void StraightLineMover::move(float timedelta) {
 }
 
 string StraightLineMover::describe() {
-    return StraightLineMover::SLUG;
+    return Mover::_describe(StraightLineMover::SLUG);
 }

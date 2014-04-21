@@ -25,5 +25,5 @@ void CyclicBoundedStraightLineMover::move(float timedelta) {
 }
 
 string CyclicBoundedStraightLineMover::describe() {
-    return CyclicBoundedStraightLineMover::SLUG;
+    return Mover::_describe(CyclicBoundedStraightLineMover::SLUG);
 }

@@ -23,6 +23,7 @@ class Mover
         void attach(BulletPattern *host);
         virtual void move(float deltatime) = 0;
         virtual string describe() = 0;
+        string _describe(string slug);
     protected:
     private:
 };
