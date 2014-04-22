@@ -10,7 +10,7 @@ class Player;
 class SketchWriter;
 
 enum kEditMode {
-    kPattern, kMover, kCountPending, kNormal
+    kPattern, kMover, kCountPending, kVolleyTimeoutPending, kNormal
 };
 
 class PatternEditor
@@ -35,7 +35,8 @@ class PatternEditor
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);
-        int parseBufferedNumber();
+        void pushDigit(int key);
+        float parseBufferedNumber();
         void mouseMoved(int x, int y);
         void setPlayersReference(vector<Player*>* players);
         PatternEditor(BulletPatternGroup *group);

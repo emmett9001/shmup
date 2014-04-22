@@ -23,21 +23,16 @@ void SketchWriter::writeOut(std::string filename, BulletPatternGroup *group) {
         cout << "#" << endl;
         out << "#" << endl;
         BulletPattern* current = (BulletPattern *)*it;
-        out << current->describe() << endl;
-        cout << current->describe() << endl;
-        for(vector<Mover *>::iterator it = current->movers.begin(); it != current->movers.end(); it++){
-            Mover *mover = (Mover *)*it;
-            cout << mover->describe() << endl;
-            out << mover->describe() << endl;
-        }
+        out << current->describe();
+        cout << current->describe();
     }
     out.close();
 }
 
 void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
     string line, slug, token, delimiter = ":";
-    int i = 0, count, x, y;
-    float _x, _y, wavelength;
+    int i = 0, count;
+    float wavelength, volley_timeout;
     ifstream myfile (filename.c_str());
     bool inPattern = false;
     ofVec2f origin, direction;
@@ -83,7 +78,7 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                 } else {
                     // pattern line
                     inPattern = true;
-                    while (i != 3) {
+                    while (i != 4) {
                         pos = line.find(delimiter);
                         token = line.substr(0, pos);
                         if (i == 0) {
@@ -92,6 +87,8 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                             origin = this->parseCoordinates(token);
                         } else if (i == 2) {
                             count = ::atof(token.c_str());
+                        } else if (i == 3) {
+                            volley_timeout = ::atof(token.c_str());
                         }
                         line.erase(0, pos + delimiter.length());
                         ++i;
@@ -99,6 +96,7 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                     pattern = (BulletPattern *)(*SerializableFactory::creator_map)[slug]();
                     pattern->count = count;
                     pattern->origin = origin;
+                    pattern->volley_timeout = volley_timeout;
                 }
             }
         }

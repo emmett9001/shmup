@@ -154,6 +154,8 @@ void PatternEditor::keyPressed(int key) {
         if (this->editMode == kNormal) {
             if (key == 'c') {
                 this->editMode = kCountPending;
+            } else if (key == 'v') {
+                this->editMode = kVolleyTimeoutPending;
             }
         } else if (this->editMode == kCountPending) {
             if (key == 'c') {
@@ -163,10 +165,16 @@ void PatternEditor::keyPressed(int key) {
                     this->highlightedPattern->count = count;
                 }
             }
-            if (key >= 48 && key <= 57) {
-                int keyVal = key - 48;
-                this->pendingCount.push_back(keyVal);
+            this->pushDigit(key);
+        } else if (this->editMode == kVolleyTimeoutPending) {
+            if (key == 'v') {
+                this->editMode = kNormal;
+                float volley = this->parseBufferedNumber();
+                if (this->highlightedPattern != NULL) {
+                    this->highlightedPattern->volley_timeout = volley;
+                }
             }
+            this->pushDigit(key);
         }
     } else if (this->mainMode) {
         if (this->keys._1) {
@@ -214,16 +222,25 @@ void PatternEditor::keyReleased(int key) {
     }
 }
 
-int PatternEditor::parseBufferedNumber() {
-    int count = 0;
-    int length = this->pendingCount.size();
-    int i = length;
+void PatternEditor::pushDigit(int key) {
+    if (key == 46 || (key >= 48 && key <= 57)) {
+        int keyVal = key == 46 ? key : key - 48;
+        this->pendingCount.push_back(keyVal);
+    }
+}
+
+float PatternEditor::parseBufferedNumber() {
+    float count = 0;
+    bool decimal = std::find(this->pendingCount.begin(), this->pendingCount.end(), '.') != this->pendingCount.end();
+    int decimalIndex = std::find(this->pendingCount.begin(), this->pendingCount.end(), '.')  - this->pendingCount.begin();
+    int i = decimal ? decimalIndex : this->pendingCount.size();
     for(vector<int>::iterator it2 = this->pendingCount.begin(); it2 != this->pendingCount.end(); ++it2) {
         int digit = (int)*it2;
-        int factor = pow((float)10, ((float)i-1));
-        count += digit*factor;
-        --i;
+        if (digit != '.') {
+            count += digit*pow((float)10, ((float)i-- - 1));
+        }
     }
+    cout << "parsed count: " << count << endl;
     this->pendingCount.clear();
     return count;
 }
