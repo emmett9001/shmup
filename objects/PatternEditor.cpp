@@ -46,6 +46,7 @@ void PatternEditor::draw() {
     }
 
     if (this->highlightedPattern != NULL) {
+        ofDrawBitmapString(this->highlightedPattern->describe(), 100, 150, 0);
         if (this->mainMode == kMover) {
             ofSetColor(0, 0, 255, 50);
         } else if (this->mainMode == kPattern) {

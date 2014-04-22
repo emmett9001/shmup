@@ -116,8 +116,15 @@ void BulletPattern::draw(){
 }
 
 string BulletPattern::_describe(string slug) {
+    char* str = new char[30];
     ostringstream stream;
-    stream << slug << ":" << this->origin.x << "," << this->origin.y;
-    stream << ":" << this->count;
+    sprintf(str, "%.2f", this->origin.x);
+    stream << slug << ":" << str << ",";
+    sprintf(str, "%.2f", this->origin.y);
+    stream << str << ":" << this->count << ":" << this->volley_timeout << endl;
+    for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
+        Mover *mover = (Mover *)*it;
+        stream << mover->describe() << endl;
+    }
     return stream.str();
 }
