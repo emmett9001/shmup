@@ -10,7 +10,6 @@
 #include "StraightLineMover.h"
 #include "Player.h"
 
-map_type *BulletPatternFactory::creator_map;
 const string BulletPattern::SLUG = "GENERIC";
 
 BulletPattern::BulletPattern(){

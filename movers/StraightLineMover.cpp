@@ -1,6 +1,7 @@
 #include "StraightLineMover.h"
 #include "BulletPattern.h"
 
+REGISTER_DEF_TYPE(StraightLineMover);
 const string StraightLineMover::SLUG = "StraightLineMover";
 
 StraightLineMover::StraightLineMover() : Mover()
@@ -8,12 +9,17 @@ StraightLineMover::StraightLineMover() : Mover()
 }
 
 StraightLineMover::StraightLineMover(ofVec2f direction)
-    : Mover(), direction(direction)
+    : Mover(direction, -1)
 {
 }
 
-StraightLineMover::StraightLineMover(BulletPattern *attached, ofVec2f direction)
-    : Mover(attached), direction(direction)
+StraightLineMover::StraightLineMover(ofVec2f direction, float wavelength)
+    : Mover(direction, wavelength)
+{
+}
+
+StraightLineMover::StraightLineMover(BulletPattern *attached, ofVec2f direction, float wavelength)
+    : Mover(attached, direction, wavelength)
 {
 }
 

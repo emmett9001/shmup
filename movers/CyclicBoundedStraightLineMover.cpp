@@ -1,6 +1,7 @@
 #include "CyclicBoundedStraightLineMover.h"
 #include "BulletPattern.h"
 
+REGISTER_DEF_TYPE(CyclicBoundedStraightLineMover);
 const string CyclicBoundedStraightLineMover::SLUG = "CyclicBoundedStraightLineMover";
 
 CyclicBoundedStraightLineMover::CyclicBoundedStraightLineMover() : StraightLineMover()
@@ -8,12 +9,12 @@ CyclicBoundedStraightLineMover::CyclicBoundedStraightLineMover() : StraightLineM
 }
 
 CyclicBoundedStraightLineMover::CyclicBoundedStraightLineMover(ofVec2f direction, float wavelength)
-    : StraightLineMover(direction), wavelength(wavelength)
+    : StraightLineMover(direction, wavelength)
 {
 }
 
 CyclicBoundedStraightLineMover::CyclicBoundedStraightLineMover(BulletPattern *attached, ofVec2f direction, float wavelength)
-    : StraightLineMover(attached, direction), wavelength(wavelength)
+    : StraightLineMover(attached, direction, wavelength)
 {
 }
 

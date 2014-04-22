@@ -3,16 +3,23 @@
 
 Mover::Mover()
 {
-    this->init(NULL);
+    this->init(NULL, ofVec2f(0, 0), -1);
 }
 
-Mover::Mover(BulletPattern *attached) {
-    this->init(attached);
+Mover::Mover(ofVec2f direction, float wavelength)
+{
+    this->init(NULL, direction, wavelength);
 }
 
-void Mover::init(BulletPattern *attached) {
+Mover::Mover(BulletPattern *attached, ofVec2f direction, float wavelength) {
+    this->init(attached, direction, wavelength);
+}
+
+void Mover::init(BulletPattern *attached, ofVec2f direction, float wavelength) {
     this->duration = -1;
     this->length = -1;
+    this->direction = direction;
+    this->wavelength = wavelength;
     this->paused = false;
     this->step = 0;
     this->next = NULL;
@@ -37,5 +44,9 @@ void Mover::update(float timedelta) {
 }
 
 string Mover::_describe(string slug) {
-    return slug;
+    ostringstream stream;
+    stream << slug << ":" << this->origin.x << "," << this->origin.y;
+    stream << ":" << this->direction.x << "," << this->direction.y;
+    stream << ":" << this->wavelength;
+    return stream.str();
 }

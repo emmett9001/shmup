@@ -10,7 +10,6 @@ class CyclicBoundedStraightLineMover : public StraightLineMover
 {
     public:
         static const string SLUG;
-        float wavelength;
         CyclicBoundedStraightLineMover();
         CyclicBoundedStraightLineMover(ofVec2f direction, float wavelength);
         CyclicBoundedStraightLineMover(BulletPattern *attached, ofVec2f direction, float wavelength);
@@ -18,7 +17,8 @@ class CyclicBoundedStraightLineMover : public StraightLineMover
         void move(float deltatime);
         string describe();
     protected:
-    private:
+private:
+    REGISTER_DEC_TYPE(CyclicBoundedStraightLineMover);
 };
 
 #endif // CYCLICBOUNDEDSTRAIGHTLINEMOVER_H

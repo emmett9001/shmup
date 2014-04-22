@@ -12,11 +12,12 @@
 
 #include <iostream>
 #include "Bullet.h"
+#include "Serializable.h"
 
 class Player;
 class Mover;
 
-class BulletPattern{
+class BulletPattern : public Serializable {
 public:
     vector<Bullet> bullets;
     vector<Player*>* players;
@@ -47,37 +48,5 @@ private:
     float frame_lifetime, last_volley, period_switch;
     virtual void volley() = 0;
 };
-
-template<typename T> BulletPattern * createT() { return new T; }
-typedef std::map<std::string, BulletPattern*(*)()> map_type;
-struct BulletPatternFactory {
-    static map_type *creator_map;
-
-    static BulletPattern * createInstance(std::string const& s) {
-        map_type::iterator it = getMap()->find(s);
-        if(it == getMap()->end())
-            return 0;
-        return it->second();
-    }
-
-protected:
-    static map_type * getMap() {
-        if(!creator_map) { creator_map = new map_type; }
-        return creator_map;
-    }
-};
-
-template<typename T>
-struct DerivedRegister : BulletPatternFactory {
-    DerivedRegister(std::string const& s) {
-        getMap()->insert(std::make_pair(s, &createT<T>));
-    }
-};
-
-#define REGISTER_DEC_TYPE(NAME) \
-    static DerivedRegister<NAME> reg
-
-#define REGISTER_DEF_TYPE(NAME) \
-    DerivedRegister<NAME> NAME::reg(#NAME)
 
 #endif /* defined(__emptyExample__BulletPattern__) */
