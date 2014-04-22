@@ -10,6 +10,7 @@
 #define __emptyExample__SketchWriter__
 
 #include <iostream>
+#include "ofMain.h"
 
 class BulletPatternGroup;
 
@@ -20,6 +21,7 @@ public:
     
     void loadSketch(std::string filename, BulletPatternGroup *group);
     void writeOut(std::string filename, BulletPatternGroup *group);
+    ofVec2f parseCoordinates(std::string token);
 };
 
 #endif /* defined(__emptyExample__SketchWriter__) */

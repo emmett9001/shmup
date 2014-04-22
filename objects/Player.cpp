@@ -106,7 +106,8 @@ void Player::axisChanged(ofxGamepadAxisEvent& e)
     float value = abs(e.value) < .2 ? 0 : e.value;
     if (e.axis == 2) {
         this->dir.x = speed*value;
-    } else if (e.axis == 3) {
+    }
+    if (e.axis == 3) {
         this->dir.y = speed*value;
     }
 }

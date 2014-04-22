@@ -56,7 +56,6 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                 }
                 inPattern = false;
             } else {
-                cout << "in config line: " << line << endl;
                 if (inPattern) {
                     // mover line
                     while (i != 4) {
@@ -65,13 +64,9 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                         if (i == 0) {
                             slug = token;
                         } else if (i == 1) {
-                            istringstream(token.substr(0, token.find(","))) >> x;
-                            istringstream(token.substr(token.find(",") + 1, token.length())) >> y;
-                            origin = ofVec2f(x, y);
+                            origin = this->parseCoordinates(token);
                         } else if (i == 2) {
-                            _x = ::atof(token.substr(0, token.find(",")).c_str());
-                            _y = ::atof(token.substr(token.find(",") + 1, token.length()).c_str());
-                            direction = ofVec2f(_x, _y);
+                            direction = this->parseCoordinates(token);
                         } else if (i == 3) {
                             wavelength = ::atof(token.substr(0, token.length()).c_str());
                         }
@@ -82,10 +77,6 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                     mover->origin = origin;
                     mover->direction = direction;
                     mover->wavelength = wavelength;
-                    cout << "mover slug: " << slug << endl;
-                    cout << "mover origin: " << mover->origin.x << "," << mover->origin.y << endl;
-                    cout << "mover direction: " << mover->direction.x << "," << mover->direction.y << endl;
-                    cout << "mover wavelength: " << mover->wavelength << endl;
                     if (pattern != NULL) {
                         pattern->addMover(mover);
                     }
@@ -98,11 +89,9 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                         if (i == 0) {
                             slug = token;
                         } else if (i == 1) {
-                            istringstream(token.substr(0, token.find(","))) >> x;
-                            istringstream(token.substr(token.find(",") + 1, token.length())) >> y;
-                            origin = ofVec2f(x, y);
+                            origin = this->parseCoordinates(token);
                         } else if (i == 2) {
-                            istringstream(token) >> count;
+                            count = ::atof(token.c_str());
                         }
                         line.erase(0, pos + delimiter.length());
                         ++i;
@@ -110,7 +99,6 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
                     pattern = (BulletPattern *)(*SerializableFactory::creator_map)[slug]();
                     pattern->count = count;
                     pattern->origin = origin;
-                    
                 }
             }
         }
@@ -121,4 +109,10 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
         }
         myfile.close();
     }
+}
+
+ofVec2f SketchWriter::parseCoordinates(std::string token) {
+    float _x = ::atof(token.substr(0, token.find(",")).c_str());
+    float _y = ::atof(token.substr(token.find(",") + 1, token.length()).c_str());
+    return ofVec2f(_x, _y);
 }
