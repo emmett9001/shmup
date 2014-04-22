@@ -7,6 +7,7 @@
 class BulletPatternGroup;
 class BulletPattern;
 class Player;
+class SketchWriter;
 
 enum kEditMode {
     kPattern, kMover, kCountPending, kNormal
@@ -24,6 +25,7 @@ class PatternEditor
         vector<Player*>* players;
         ofVec2f mouseDownPos;
         bool paused;
+        SketchWriter *writer;
 
         void mouseReleased(int x, int y, int button);
         void mousePressed(int x, int y, int button);

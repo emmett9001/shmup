@@ -11,6 +11,8 @@
 
 #include "BulletPatternGroup.h"
 
+#include "SketchWriter.h"
+
 PatternEditor::PatternEditor(BulletPatternGroup *group)
 {
     this->group = group;
@@ -19,7 +21,8 @@ PatternEditor::PatternEditor(BulletPatternGroup *group)
     this->mainMode = kPattern;
     this->editMode = kNormal;
     this->paused = false;
-    this->loadSketch();
+    writer = new SketchWriter();
+    writer->loadSketch("dump.txt", this->group);
     this->keys = pressedKeys();
 }
 
@@ -29,37 +32,7 @@ void PatternEditor::pause() {
 }
 
 void PatternEditor::loadSketch() {
-    string line, slug, token, delimiter = ":";
-    int i = 0, count, x, y;
-    ifstream myfile ("dump.txt");
-    ofVec2f origin;
-    BulletPattern *pattern;
-    if (myfile.is_open()) {
-        while (getline(myfile,line)) {
-            i = 0;
-            size_t pos = 0;
-            while (i != 3) {
-                pos = line.find(delimiter);
-                token = line.substr(0, pos);
-                if (i == 0) {
-                    slug = token;
-                } else if (i == 1) {
-                    istringstream(token.substr(0, token.find(","))) >> x;
-                    istringstream(token.substr(token.find(",") + 1, token.length())) >> y;
-                    origin = ofVec2f(x, y);
-                } else if (i == 2) {
-                    istringstream(token) >> count;
-                }
-                line.erase(0, pos + delimiter.length());
-                ++i;
-            }
-            pattern = (*BulletPatternFactory::creator_map)[slug]();
-            pattern->count = count;
-            pattern->origin = origin;
-            this->group->addPattern(pattern);
-        }
-        myfile.close();
-    }
+    
 }
 
 void PatternEditor::draw() {
@@ -213,17 +186,7 @@ void PatternEditor::keyPressed(int key) {
     if (key == 100) {  // d
         this->group->patterns.clear();
     } else if (key == 119) {  // w
-        ofstream out("dump.txt");
-        for(vector<BulletPattern*>::iterator it = this->group->patterns.begin(); it != this->group->patterns.end(); ++it) {
-            BulletPattern* current = (BulletPattern *)*it;
-            out << current->describe() << endl;
-            cout << current->describe() << endl;
-            for(vector<Mover *>::iterator it = current->movers.begin(); it != current->movers.end(); it++){
-                Mover *mover = (Mover *)*it;
-                cout << mover->describe() << endl;
-            }
-        }
-        out.close();
+        writer->writeOut("dump.txt", this->group);
     } else if (key == 109) {  // m
         if (this->mainMode == kPattern) {
             this->mainMode = kMover;
