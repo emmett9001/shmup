@@ -151,22 +151,13 @@ void PatternEditor::keyPressed(int key) {
             this->typeString = "Oscillating Fan Out";
         }
         if (this->editMode == kNormal) {
-            if (key == 99) {  // c
+            if (key == 'c') {
                 this->editMode = kCountPending;
             }
         } else if (this->editMode == kCountPending) {
-            if (key == 99) {
+            if (key == 'c') {
                 this->editMode = kNormal;
-                int count = 0;
-                int length = this->pendingCount.size();
-                int i = length;
-                for(vector<int>::iterator it2 = this->pendingCount.begin(); it2 != this->pendingCount.end(); ++it2) {
-                    int digit = (int)*it2;
-                    int factor = pow((float)10, ((float)i-1));
-                    count += digit*factor;
-                    --i;
-                }
-                this->pendingCount.clear();
+                int count = this->parseBufferedNumber();
                 if (this->highlightedPattern != NULL) {
                     this->highlightedPattern->count = count;
                 }
@@ -183,17 +174,17 @@ void PatternEditor::keyPressed(int key) {
             this->typeString = "Bounded Cyclic Straight Line";
         }
     }
-    if (key == 100) {  // d
+    if (key == 'd') {
         this->group->patterns.clear();
-    } else if (key == 119) {  // w
+    } else if (key == 'w') {
         writer->writeOut("dump.txt", this->group);
-    } else if (key == 109) {  // m
+    } else if (key == 'm') {
         if (this->mainMode == kPattern) {
             this->mainMode = kMover;
         } else if (this->mainMode == kMover) {
             this->mainMode = kPattern;
         }
-    } else if (key == 112) {  // p
+    } else if (key == 'p') {
         this->pause();
     }
 }
@@ -220,4 +211,18 @@ void PatternEditor::keyReleased(int key) {
     } else if (key == 122) {
         this->keys.z = false;
     }
+}
+
+int PatternEditor::parseBufferedNumber() {
+    int count = 0;
+    int length = this->pendingCount.size();
+    int i = length;
+    for(vector<int>::iterator it2 = this->pendingCount.begin(); it2 != this->pendingCount.end(); ++it2) {
+        int digit = (int)*it2;
+        int factor = pow((float)10, ((float)i-1));
+        count += digit*factor;
+        --i;
+    }
+    this->pendingCount.clear();
+    return count;
 }

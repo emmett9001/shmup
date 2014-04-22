@@ -35,6 +35,7 @@ class PatternEditor
         void draw();
         void keyPressed(int key);
         void keyReleased(int key);
+        int parseBufferedNumber();
         void mouseMoved(int x, int y);
         void setPlayersReference(vector<Player*>* players);
         PatternEditor(BulletPatternGroup *group);
