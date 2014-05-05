@@ -31,10 +31,6 @@ void PatternEditor::pause() {
     this->group->pause();
 }
 
-void PatternEditor::loadSketch() {
-    
-}
-
 void PatternEditor::draw() {
     ofSetColor(0, 0, 0);
     ofDrawBitmapString(this->typeString, 100, 100, 0);
@@ -45,7 +41,7 @@ void PatternEditor::draw() {
         ofDrawBitmapString("PATTERN MODE", 100, 50, 0);
     }
 
-    ofDrawBitmapString("m: switch modes\np: pause\nc: edit count\nv: edit volley timeout\nw: save", 100, ofGetHeight()-200, 0);
+    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nw: save", 100, ofGetHeight()-200, 0);
     
     if (this->highlightedPattern != NULL) {
         ofDrawBitmapString(this->highlightedPattern->describe(), 100, 150, 0);
@@ -70,14 +66,6 @@ void PatternEditor::mouseDragged(int x, int y, int button) {
 }
 
 void PatternEditor::mouseMoved(int x, int y){
-    this->highlightedPattern = NULL;
-    for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
-        BulletPattern* currentPattern = (BulletPattern *)*it2;
-        ofVec2f disp = currentPattern->origin - ofVec2f(x, y);
-        if (disp.length() < 50) {
-            this->highlightedPattern = currentPattern;
-        }
-    }
 }
 
 void PatternEditor::mouseReleased(int x, int y, int button){
@@ -87,21 +75,36 @@ void PatternEditor::mouseReleased(int x, int y, int button){
     if (this->mainMode == kPattern) {
         if(this->keys._1) {
             this->group->addPattern(new CyclicEllipseBulletPattern(30, pos, 7, .3));
-        }
-        if(this->keys._2) {
+        } else if(this->keys._2) {
             this->group->addPattern(new RadialBulletPattern(20, pos, 10, .085));
-        }
-        if(this->keys._3) {
+        } else if(this->keys._3) {
             this->group->addPattern(new FanOutBulletPattern(10, pos, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
-        }
-        if(this->keys._4) {
+        } else if(this->keys._4) {
             this->group->addPattern(new TargetedBulletPattern(1, pos, 5, .1, 2, .5));
-        }
-        if(this->keys._5) {
+        } else if(this->keys._5) {
             this->group->addPattern(new OscillatingFanOutBulletPattern(10, pos, 5, .2, ofVec2f(0, 1)));
-        }
-        if (!this->keys.z && this->highlightedPattern != NULL) {
-            this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
+        } else {
+            bool selected = false;
+            for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
+                BulletPattern* currentPattern = (BulletPattern *)*it2;
+                ofVec2f disp = currentPattern->origin - ofVec2f(x, y);
+                if (disp.length() < 50) {
+                    selected = true;
+                    this->highlightedPattern = currentPattern;
+                    this->highlightedPattern->highlight();
+                } else {
+                    currentPattern->unhighlight();
+                }
+            }
+            if (!selected) {
+                if (this->highlightedPattern != NULL) {
+                    this->highlightedPattern = NULL;
+                }
+                for(vector<BulletPattern*>::iterator it2 = this->group->patterns.begin(); it2 != this->group->patterns.end(); ++it2) {
+                    BulletPattern* currentPattern = (BulletPattern *)*it2;
+                    currentPattern->highlight();
+                }
+            }
         }
     } else if (this->mainMode == kMover) {
         if (this->highlightedPattern != NULL) {
@@ -197,6 +200,11 @@ void PatternEditor::keyPressed(int key) {
         }
     } else if (key == 'p') {
         this->pause();
+    } else if (key == 'f') {
+        if (this->highlightedPattern != NULL) {
+            this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
+            this->highlightedPattern = NULL;
+        }
     }
 }
 

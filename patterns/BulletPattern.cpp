@@ -39,6 +39,7 @@ void BulletPattern::init(int count, ofVec2f origin, float bulletspeed, float vol
     this->origin = origin;
     this->last_volley = 0;
     this->frame_lifetime = 0;
+    this->highlighted = false;
     this->isrunning = false;
     this->period = period;
     this->duty = duty;
@@ -106,12 +107,31 @@ void BulletPattern::update(float deltatime){
     if (this->frame_lifetime > this->last_volley+this->volley_timeout) {
         this->last_volley = this->frame_lifetime;
         this->volley();
+        if(this->highlighted) {
+            this->highlight();
+        } else {
+            this->unhighlight();
+        }
     }
 }
 
 void BulletPattern::draw(){
     for(vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); it++){
         it->draw();
+    }
+}
+
+void BulletPattern::highlight() {
+    this->highlighted = true;
+    for(vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); it++){
+        it->highlight();
+    }
+}
+
+void BulletPattern::unhighlight() {
+    this->highlighted = false;
+    for(vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); it++){
+        it->unhighlight();
     }
 }
 

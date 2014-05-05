@@ -1,0 +1,11 @@
+hit key to drop into "play mode"
+infinite scroll up and down
+in play mode, scroll starts upward from checkpoint and you die if you get hit
+save out coordinates in an infinite coordinate space
+cyclic bounded mover should edit like this:
+    click from start point to end point, rather than from center to one apex
+margins around the screen in edit mode to allow placement of invisible markers
+    eg "when you get here, speed up the scrolling"
+click to highlight, rather than mouseover
+currently highlighted pattern should highlight its bullets, all others should
+    be half hidden

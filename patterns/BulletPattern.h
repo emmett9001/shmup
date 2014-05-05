@@ -24,7 +24,7 @@ public:
     vector<Mover*> movers;
     ofVec2f origin;
     float volley_timeout, bulletspeed, period, duty;
-    bool isrunning, paused;
+    bool isrunning, paused, highlighted;
     int count;
     static const string SLUG;
 
@@ -43,6 +43,8 @@ public:
     void addMover(Mover *mover);
     void clearMovers();
     void setPlayersReference(vector<Player*>* players);
+    void highlight();
+    void unhighlight();
 
 private:
     float frame_lifetime, last_volley, period_switch;
