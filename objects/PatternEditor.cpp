@@ -12,10 +12,12 @@
 #include "BulletPatternGroup.h"
 
 #include "SketchWriter.h"
+#include "Camera.h"
 
-PatternEditor::PatternEditor(BulletPatternGroup *group)
+PatternEditor::PatternEditor(BulletPatternGroup *group, Camera *camera)
 {
     this->group = group;
+    this->camera = camera;
     this->typeString =  "";
     this->highlightedPattern = NULL;
     this->mainMode = kPattern;
@@ -97,6 +99,7 @@ void PatternEditor::mouseReleased(int x, int y, int button){
                 }
             }
             if (!selected) {
+                // if none are selected, highlight all
                 if (this->highlightedPattern != NULL) {
                     this->highlightedPattern = NULL;
                 }
@@ -204,6 +207,12 @@ void PatternEditor::keyPressed(int key) {
         if (this->highlightedPattern != NULL) {
             this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
             this->highlightedPattern = NULL;
+        }
+    } else if (key == 's') {
+        if (this->camera->isScrolling()) {
+            this->camera->stopScrolling();
+        } else {
+            this->camera->startScrolling(ofVec2f(0, -1));
         }
     }
 }

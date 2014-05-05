@@ -39,7 +39,7 @@ void BulletPattern::init(int count, ofVec2f origin, float bulletspeed, float vol
     this->origin = origin;
     this->last_volley = 0;
     this->frame_lifetime = 0;
-    this->highlighted = false;
+    this->highlighted = true;
     this->isrunning = false;
     this->period = period;
     this->duty = duty;

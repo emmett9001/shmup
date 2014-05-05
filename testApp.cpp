@@ -3,6 +3,7 @@
 #include "PatternEditor.h"
 #include "BulletPatternGroup.h"
 #include "BoardPartition.h"
+#include "Camera.h"
 
 #include "CyclicEllipseBulletPattern.h"
 #include "RadialBulletPattern.h"
@@ -15,6 +16,7 @@ vector<BulletPatternGroup*>::iterator cur_group;
 vector<Player*> players;
 PatternEditor *editor;
 Player *player;
+Camera *camera;
 BoardPartition *board_partition;
 
 //--------------------------------------------------------------
@@ -73,7 +75,11 @@ void testApp::setup(){
     */
 
     cur_group = groups.begin();
-    editor = new PatternEditor(*cur_group);
+    
+    camera = new Camera();
+    camera->setGroupReference(*cur_group);
+
+    editor = new PatternEditor(*cur_group, camera);
 
     players.push_back(player);
 
@@ -87,6 +93,7 @@ void testApp::setup(){
             currentPattern->setPlayersReference(&players);
         }
     }
+    
     editor->setPlayersReference(&players);
 }
 
@@ -99,6 +106,7 @@ void testApp::update(){
     (*cur_group)->update(deltatime);
     player->update(deltatime);
     board_partition->update(deltatime);
+    camera->update(deltatime);
 }
 
 //--------------------------------------------------------------
