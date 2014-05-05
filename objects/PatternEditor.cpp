@@ -31,6 +31,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group, Camera *camera)
 void PatternEditor::pause() {
     this->paused = !this->paused;
     this->group->pause();
+    this->camera->pause();
 }
 
 void PatternEditor::draw() {
@@ -43,7 +44,7 @@ void PatternEditor::draw() {
         ofDrawBitmapString("PATTERN MODE", 100, 50, 0);
     }
 
-    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nw: save", 100, ofGetHeight()-200, 0);
+    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nik: pan camera\nw: save", 100, ofGetHeight()-200, 0);
     
     if (this->highlightedPattern != NULL) {
         ofDrawBitmapString(this->highlightedPattern->describe(), 100, 150, 0);
@@ -191,53 +192,86 @@ void PatternEditor::keyPressed(int key) {
             this->typeString = "Bounded Cyclic Straight Line";
         }
     }
-    if (key == 'd') {
-        this->group->patterns.clear();
-    } else if (key == 'w') {
-        writer->writeOut("dump.txt", this->group);
-    } else if (key == 'm') {
-        if (this->mainMode == kPattern) {
-            this->mainMode = kMover;
-        } else if (this->mainMode == kMover) {
-            this->mainMode = kPattern;
-        }
-    } else if (key == 'p') {
-        this->pause();
-    } else if (key == 'f') {
-        if (this->highlightedPattern != NULL) {
-            this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
-            this->highlightedPattern = NULL;
-        }
-    } else if (key == 's') {
-        if (this->camera->isScrolling()) {
-            this->camera->stopScrolling();
-        } else {
-            this->camera->startScrolling(ofVec2f(0, -1));
-        }
+    int camera_scrub_speed = 3;
+    switch(key) {
+        case 'd':
+            this->group->patterns.clear();
+            break;
+        case 'w':
+            writer->writeOut("dump.txt", this->group);
+            break;
+        case 'm':
+            if (this->mainMode == kPattern) {
+                this->mainMode = kMover;
+            } else if (this->mainMode == kMover) {
+                this->mainMode = kPattern;
+            }
+            break;
+        case 'p':
+            this->pause();
+            break;
+        case 'f':
+            if (this->highlightedPattern != NULL) {
+                this->group->patterns.erase(std::remove(this->group->patterns.begin(), this->group->patterns.end(), this->highlightedPattern), this->group->patterns.end());
+                this->highlightedPattern = NULL;
+            }
+            break;
+        case 's':
+            if (this->camera->isScrolling()) {
+                this->camera->stopScrolling();
+            } else {
+                this->camera->startScrolling(ofVec2f(0, -1));
+            }
+            break;
+        case 'i':
+            this->camera->startScrolling(ofVec2f(0, -camera_scrub_speed));
+            break;
+        case 'l':
+            break;
+        case 'k':
+            this->camera->startScrolling(ofVec2f(0, camera_scrub_speed));
+            break;
+        case 'j':
+            break;
     }
 }
 
 void PatternEditor::keyReleased(int key) {
-    if (key == 49) {
-        this->keys._1 = false;
-        this->typeString = "";
-    } else if (key == 50) {
-        this->keys._2 = false;
-        this->typeString = "";
-    } else if (key ==  51) {
-        this->keys._3 = false;
-        this->typeString = "";
-    } else if (key == 52) {
-        this->keys._4 = false;
-        this->typeString = "";
-    } else if (key == 53) {
-        this->keys._5 = false;
-        this->typeString = "";
-    } else if (key == 54) {
-        this->keys._6 = false;
-        this->typeString = "";
-    } else if (key == 122) {
-        this->keys.z = false;
+    
+    switch (key) {
+        case 'i':
+        case 'l':
+        case 'k':
+        case 'j':
+            this->camera->stopScrolling();
+            break;
+        case 49:
+            this->keys._1 = false;
+            this->typeString = "";
+            break;
+        case 50:
+            this->keys._2 = false;
+            this->typeString = "";
+            break;
+        case 51:
+            this->keys._3 = false;
+            this->typeString = "";
+            break;
+        case 52:
+            this->keys._4 = false;
+            this->typeString = "";
+            break;
+        case 53:
+            this->keys._5 = false;
+            this->typeString = "";
+            break;
+        case 54:
+            this->keys._6 = false;
+            this->typeString = "";
+            break;
+        case 122:
+            this->keys.z = false;
+            break;
     }
 }
 

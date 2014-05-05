@@ -19,7 +19,8 @@ class Camera {
 public:
     BulletPatternGroup *group;
     vector<GameObject*> objects;
-    ofVec2f scroll_direction;
+    ofVec2f scroll_direction, last_scroll_direction;
+    bool paused;
     
     Camera();
     void setGroupReference(BulletPatternGroup *group);
@@ -27,6 +28,9 @@ public:
     void startScrolling(ofVec2f dir);
     void stopScrolling();
     bool isScrolling();
+    void move(ofVec2f dir);
+    void pause();
+    void unpause();
 };
 
 #endif /* defined(__emptyExample__Camera__) */
