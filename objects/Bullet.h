@@ -19,7 +19,7 @@ class Bullet : public GameObject {
 public:
     float radius, alpha;
     ofColor color;
-    bool hasfired;
+    bool hasfired, highlighted;
     
     Bullet();
     Bullet(ofVec2f pos, ofVec2f dir);

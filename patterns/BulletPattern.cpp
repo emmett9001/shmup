@@ -78,6 +78,11 @@ void BulletPattern::update(float deltatime){
     vector<Bullet>::iterator it = bullets.begin();
     while(it != bullets.end()){
         it->update(deltatime);
+        if (this->highlighted) {
+            it->highlight();
+        } else {
+            it->unhighlight();
+        }
         if (!it->is_onscreen()) {
             it = bullets.erase(it);
         } else {
@@ -107,11 +112,6 @@ void BulletPattern::update(float deltatime){
     if (this->frame_lifetime > this->last_volley+this->volley_timeout) {
         this->last_volley = this->frame_lifetime;
         this->volley();
-        if(this->highlighted) {
-            this->highlight();
-        } else {
-            this->unhighlight();
-        }
     }
 }
 
