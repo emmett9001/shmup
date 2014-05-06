@@ -14,16 +14,19 @@
 
 class BulletPatternGroup;
 class GameObject;
+class Background;
 
 class Camera {
 public:
     BulletPatternGroup *group;
+    Background *background;
     vector<GameObject*> objects;
     ofVec2f scroll_direction, last_scroll_direction;
     bool paused;
     
     Camera();
     void setGroupReference(BulletPatternGroup *group);
+    void setBackgroundReference(Background *background);
     void update(float deltatime);
     void startScrolling(ofVec2f dir);
     void stopScrolling();

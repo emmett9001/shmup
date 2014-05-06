@@ -45,7 +45,7 @@ void Bullet::unhighlight() {
 }
 
 void Bullet::makeActiveForCollisionFiltering() {
-    this->color = ofColor(255, 255, 255);
+    this->color = ofColor(255, 255, 0);
 }
 
 void Bullet::makeInactiveForCollisionFiltering() {

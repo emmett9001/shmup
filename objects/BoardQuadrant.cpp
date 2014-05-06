@@ -18,7 +18,7 @@ BoardQuadrant::BoardQuadrant(ofRectangle rect) {
 }
 
 void BoardQuadrant::draw() {
-    ofSetColor(this->color);
+    ofSetColor(this->color, 80);
     ofRect(this->rect);
 }
 
