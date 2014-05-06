@@ -44,7 +44,7 @@ void PatternEditor::draw() {
         ofDrawBitmapString("PATTERN MODE", 100, 50, 0);
     }
 
-    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nik: pan camera\nw: save", 100, ofGetHeight()-200, 0);
+    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nik: pan camera\ns: toggle autoscroll\nw: save", 100, ofGetHeight()-200, 0);
     
     if (this->highlightedPattern != NULL) {
         ofDrawBitmapString(this->highlightedPattern->describe(), 100, 150, 0);
