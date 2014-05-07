@@ -13,11 +13,12 @@
 #include <iostream>
 #include "Bullet.h"
 #include "Serializable.h"
+#include "GameObject.h"
 
 class Player;
 class Mover;
 
-class BulletPattern : public Serializable {
+class BulletPattern : public Serializable, public GameObject {
 public:
     vector<Bullet> bullets;
     vector<Player*>* players;

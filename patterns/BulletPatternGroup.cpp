@@ -16,14 +16,18 @@ BulletPatternGroup::BulletPatternGroup() {
 void BulletPatternGroup::update(float deltatime) {
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        current->update(deltatime);
+        if (current->is_onscreen()) {
+            current->update(deltatime);
+        }
     }
 }
 
 void BulletPatternGroup::draw() {
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        current->draw();
+        if (current->is_onscreen()) {
+            current->draw();
+        }
     }
 }
 
