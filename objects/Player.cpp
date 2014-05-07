@@ -9,7 +9,7 @@
 #include "Player.h"
 
 Player::Player(controlType control_type) {
-    this->pos = ofVec2f(200, 200);
+    this->pos = ofVec2f(ofGetWidth()/2, ofGetHeight()-50);
     this->hitbox_radius = 5;
     this->colliding = false;
     this->respawned = false;

@@ -77,9 +77,9 @@ void testApp::setup(){
     */
 
     cur_group = groups.begin();
-    
+
     background = new Background();
-    
+
     camera = new Camera();
     camera->setGroupReference(*cur_group);
     camera->setBackgroundReference(background);
@@ -98,7 +98,7 @@ void testApp::setup(){
             currentPattern->setPlayersReference(&players);
         }
     }
-    
+
     editor->setPlayersReference(&players);
 }
 
@@ -118,7 +118,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(255, 255, 255);
-    
+
     background->draw();
 
     board_partition->draw();

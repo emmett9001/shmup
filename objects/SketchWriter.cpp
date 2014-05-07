@@ -14,7 +14,7 @@
 #include "CyclicBoundedStraightLineMover.h"
 
 SketchWriter::SketchWriter() {
-    
+
 }
 
 void SketchWriter::writeOut(std::string filename, BulletPatternGroup *group) {
