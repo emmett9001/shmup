@@ -41,7 +41,7 @@ void Bullet::highlight() {
 }
 
 void Bullet::unhighlight() {
-    this->alpha = 100;
+    this->alpha = 80;
 }
 
 void Bullet::makeActiveForCollisionFiltering() {
