@@ -24,6 +24,7 @@ public:
 
     void update(float deltatime);
     void draw();
+    void prepare();
     void addPattern(BulletPattern *pattern);
     void pause();
 };

@@ -43,6 +43,7 @@ public:
     void pause();
     void addMover(Mover *mover);
     void clearMovers();
+    void setOrigin(ofVec2f origin);
     void setPlayersReference(vector<Player*>* players);
     void highlight();
     void unhighlight();

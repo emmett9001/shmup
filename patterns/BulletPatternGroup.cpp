@@ -45,3 +45,17 @@ void BulletPatternGroup::pause() {
         current->pause();
     }
 }
+
+void BulletPatternGroup::prepare() {
+    float greatest_y = 0;
+    for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
+        BulletPattern* current = (BulletPattern *)*it;
+        if (current->origin.y > greatest_y) {
+            greatest_y = current->origin.y;
+        }
+    }
+    for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
+        BulletPattern* current = (BulletPattern *)*it;
+        current->setOrigin(ofVec2f(current->origin.x, current->origin.y-greatest_y));
+    }
+}

@@ -1,4 +1,9 @@
 TODO
+don't load patterns all at once
+    put all loaded patterns into a structure
+    only create them when they should come onscreen
+hotkey that clears the screen of all bullets, doesn't kill any patterns or
+    movers
 hit key to drop into "play mode"
 in play mode, scroll starts upward from checkpoint and you die if you get hit
 save out coordinates in an infinite coordinate space

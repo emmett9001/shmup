@@ -102,9 +102,10 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
         }
         if (pattern != NULL) {
             group->addPattern(pattern);
-            pattern = NULL;
-            mover = NULL;
         }
+        group->prepare();
+        pattern = NULL;
+        mover = NULL;
         myfile.close();
     }
 }

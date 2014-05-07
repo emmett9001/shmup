@@ -115,6 +115,14 @@ void BulletPattern::update(float deltatime){
     }
 }
 
+void BulletPattern::setOrigin(ofVec2f origin) {
+    this->origin = origin;
+    for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
+        Mover *mover = (Mover *)*it;
+        mover->origin = origin;
+    }
+}
+
 void BulletPattern::draw(){
     for(vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); it++){
         it->draw();
