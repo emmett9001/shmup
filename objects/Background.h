@@ -20,8 +20,8 @@ public:
     bool infinite;
     float tile_height;
     ofVec2f size;
-    
-    Background();
+
+    Background(ofVec2f size);
     void draw();
     void update(float deltatime);
 };

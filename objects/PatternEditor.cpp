@@ -12,12 +12,12 @@
 #include "BulletPatternGroup.h"
 
 #include "SketchWriter.h"
-#include "Camera.h"
+#include "Stage.h"
 
-PatternEditor::PatternEditor(BulletPatternGroup *group, Camera *camera)
+PatternEditor::PatternEditor(BulletPatternGroup *group, Stage *stage)
 {
     this->group = group;
-    this->camera = camera;
+    this->stage = stage;
     this->typeString =  "";
     this->highlightedPattern = NULL;
     this->mainMode = kPattern;
@@ -31,7 +31,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group, Camera *camera)
 void PatternEditor::pause() {
     this->paused = !this->paused;
     this->group->pause();
-    this->camera->pause();
+    this->stage->pause();
 }
 
 void PatternEditor::draw() {
@@ -217,19 +217,19 @@ void PatternEditor::keyPressed(int key) {
             }
             break;
         case 's':
-            if (this->camera->isScrolling()) {
-                this->camera->stopScrolling();
+            if (this->stage->isScrolling()) {
+                this->stage->stopScrolling();
             } else {
-                this->camera->startScrolling(ofVec2f(0, -1));
+                this->stage->startScrolling(ofVec2f(0, -1));
             }
             break;
         case 'i':
-            this->camera->startScrolling(ofVec2f(0, -camera_scrub_speed));
+            this->stage->startScrolling(ofVec2f(0, -camera_scrub_speed));
             break;
         case 'l':
             break;
         case 'k':
-            this->camera->startScrolling(ofVec2f(0, camera_scrub_speed));
+            this->stage->startScrolling(ofVec2f(0, camera_scrub_speed));
             break;
         case 'j':
             break;
@@ -245,7 +245,7 @@ void PatternEditor::keyReleased(int key) {
         case 'l':
         case 'k':
         case 'j':
-            this->camera->stopScrolling();
+            this->stage->stopScrolling();
             break;
         case 49:
             this->keys._1 = false;

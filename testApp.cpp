@@ -4,7 +4,7 @@
 #include "BulletPatternGroup.h"
 #include "BoardPartition.h"
 #include "Camera.h"
-#include "Background.h"
+#include "Stage.h"
 
 #include "CyclicEllipseBulletPattern.h"
 #include "RadialBulletPattern.h"
@@ -18,7 +18,7 @@ vector<Player*> players;
 PatternEditor *editor;
 Player *player;
 Camera *camera;
-Background *background;
+Stage *stage;
 BoardPartition *board_partition;
 
 //--------------------------------------------------------------
@@ -78,13 +78,10 @@ void testApp::setup(){
 
     cur_group = groups.begin();
 
-    background = new Background();
+    stage = new Stage();
+    stage->setGroupReference(*cur_group);
 
-    camera = new Camera();
-    camera->setGroupReference(*cur_group);
-    camera->setBackgroundReference(background);
-
-    editor = new PatternEditor(*cur_group, camera);
+    editor = new PatternEditor(*cur_group, stage);
 
     players.push_back(player);
 
@@ -111,15 +108,14 @@ void testApp::update(){
     (*cur_group)->update(deltatime);
     player->update(deltatime);
     board_partition->update(deltatime);
-    camera->update(deltatime);
-    background->update(deltatime);
+    stage->update(deltatime);
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(255, 255, 255);
 
-    background->draw();
+    stage->draw();
 
     board_partition->draw();
 

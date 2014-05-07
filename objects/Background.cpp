@@ -8,11 +8,11 @@
 
 #include "Background.h"
 
-Background::Background() {
+Background::Background(ofVec2f size) {
     this->infinite = true;
-    this->tile_height = ofGetWidth()/8;
-    this->size = ofVec2f(ofGetWidth(), ofGetHeight());
-    this->pos = ofVec2f(0, this->tile_height * -2);
+    this->tile_height = size.x/8;
+    this->size = size;
+    this->pos = ofVec2f((ofGetWidth()-this->size.x)/2, this->tile_height * -2);
 }
 
 void Background::update(float deltatime) {
@@ -27,7 +27,7 @@ void Background::draw() {
     int horiz_tiles = (int)this->size.x / (int)this->tile_height;
     int vert_tiles = (int)this->size.y / (int)this->tile_height;
     bool shade = false;
-    for (int i = 0; i < horiz_tiles + 1; i++) {
+    for (int i = 0; i < horiz_tiles; i++) {
         for (int j = 0; j < vert_tiles + 3; j++) {
             int x = this->pos.x + i*tile_height;
             int y = this->pos.y + j*tile_height;

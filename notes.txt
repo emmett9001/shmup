@@ -9,6 +9,9 @@ cyclic bounded mover should edit like this:
 margins around the screen in edit mode to allow placement of invisible markers
     eg "when you get here, speed up the scrolling"
     or "restart from here in play mode"
+position pattens relative to the stage
+is_onscreen should say whether the object is within the bounds of the stage
+    camera
 
 DONE
 currently highlighted pattern should highlight its bullets, all others should

@@ -8,7 +8,7 @@ class BulletPatternGroup;
 class BulletPattern;
 class Player;
 class SketchWriter;
-class Camera;
+class Stage;
 
 enum kEditMode {
     kPattern, kMover, kCountPending, kVolleyTimeoutPending, kNormal
@@ -21,7 +21,7 @@ public:
     pressedKeys keys;
     vector<int> pendingCount;
     kEditMode editMode, mainMode;
-    Camera *camera;
+    Stage *stage;
     BulletPattern *highlightedPattern;
     string typeString;
     vector<Player*>* players;
@@ -40,7 +40,7 @@ public:
     float parseBufferedNumber();
     void mouseMoved(int x, int y);
     void setPlayersReference(vector<Player*>* players);
-    PatternEditor(BulletPatternGroup *group, Camera *camera);
+    PatternEditor(BulletPatternGroup *group, Stage *stage);
 };
 
 #endif // PATTERNEDITOR_H

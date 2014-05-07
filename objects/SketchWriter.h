@@ -18,7 +18,7 @@ class SketchWriter
 {
 public:
     SketchWriter();
-    
+
     void loadSketch(std::string filename, BulletPatternGroup *group);
     void writeOut(std::string filename, BulletPatternGroup *group);
     ofVec2f parseCoordinates(std::string token);
