@@ -38,6 +38,15 @@ void BulletPatternGroup::addPattern(BulletPattern *pattern) {
     }
 }
 
+void BulletPatternGroup::destroyAllBullets() {
+    for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
+        BulletPattern* current = (BulletPattern *)*it;
+        if (current->is_onscreen()) {
+            current->destroyAllBullets();
+        }
+    }
+}
+
 void BulletPatternGroup::pause() {
     this->paused = !this->paused;
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {

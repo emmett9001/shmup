@@ -26,5 +26,6 @@ public:
     void draw();
     void prepare();
     void addPattern(BulletPattern *pattern);
+    void destroyAllBullets();
     void pause();
 };

@@ -72,6 +72,13 @@ void BulletPattern::clearMovers() {
     this->movers.clear();
 }
 
+void BulletPattern::destroyAllBullets() {
+    vector<Bullet>::iterator it = bullets.begin();
+    while(it != bullets.end()){
+        it = bullets.erase(it);
+    }
+}
+
 void BulletPattern::update(float deltatime){
     if (this->paused) return;
 
