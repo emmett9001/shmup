@@ -57,6 +57,7 @@ void Camera::pause() {
 }
 
 void Camera::move(ofVec2f dir) {
+    if (dir.x == 0 && dir.y == 0) return;
     for(vector<BulletPattern*>::iterator it = this->group->patterns.begin(); it != this->group->patterns.end(); ++it) {
         BulletPattern* current_pattern = (BulletPattern *)*it;
         current_pattern->origin -= dir;
