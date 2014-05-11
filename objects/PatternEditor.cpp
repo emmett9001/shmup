@@ -193,7 +193,7 @@ void PatternEditor::keyPressed(int key) {
             this->typeString = "Bounded Cyclic Straight Line";
         }
     }
-    int camera_scrub_speed = 3;
+    int camera_scrub_speed = 6;
     switch(key) {
         case 'd':
             this->group->patterns.clear();
