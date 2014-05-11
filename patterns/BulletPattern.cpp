@@ -67,6 +67,7 @@ void BulletPattern::addMover(Mover *mover) {
     if (this->movers.size() > 0) {
         ((Mover *)(this->movers.front()))->next = mover;
     }
+    
     mover->attach(this);
     this->movers.push_back(mover);
 }

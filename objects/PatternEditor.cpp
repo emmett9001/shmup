@@ -64,8 +64,10 @@ void PatternEditor::mousePressed(int x, int y, int button) {
 }
 
 void PatternEditor::mouseDragged(int x, int y, int button) {
-    if (this->keys.mouse1 && this->highlightedPattern != NULL) {
-        this->highlightedPattern->setOrigin(ofVec2f(x, y));
+    if (this->mainMode == kPattern) {
+        if (this->keys.mouse1 && this->highlightedPattern != NULL) {
+            this->highlightedPattern->setOrigin(ofVec2f(x, y));
+        }
     }
 }
 
