@@ -19,14 +19,16 @@ class Player;
 class BoardQuadrant;
 class BoardQuadrantCollisionDelegate;
 class BulletPatternGroup;
+class Stage;
 
 class BoardPartition : public GameObject {
 public:
     vector<BoardQuadrant *> quads;
     vector<Player*>* players;
     BulletPatternGroup* pattern_group;
+    Stage *stage;
     
-    BoardPartition();
+    BoardPartition(Stage *stage);
     
     void draw();
     void update(float deltatime);

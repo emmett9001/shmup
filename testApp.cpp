@@ -38,7 +38,6 @@ void testApp::setup(){
     ofVec2f origin = ofVec2f(230,200);
     player = new Player(control_type);
 
-    board_partition = new BoardPartition();
     BulletPatternGroup *group;
 
     // blank group for editing
@@ -82,6 +81,8 @@ void testApp::setup(){
     stage->setGroupReference(*cur_group);
 
     editor = new PatternEditor(*cur_group, stage);
+    
+    board_partition = new BoardPartition(stage);
 
     players.push_back(player);
 

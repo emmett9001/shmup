@@ -8,16 +8,25 @@
 
 #include "BoardPartition.h"
 #include "Player.h"
+#include "Stage.h"
+#include "Camera.h"
 #include "BoardQuadrant.h"
 
-BoardPartition::BoardPartition() {
+BoardPartition::BoardPartition(Stage *stage) {
     this->quads = vector<BoardQuadrant *>();
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 0, ofGetWidth()/2, ofGetHeight()/3)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 0, ofGetWidth()/2, ofGetHeight()/3)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, ofGetHeight()/3, ofGetWidth()/2, ofGetHeight()/3)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, ofGetHeight()/3, ofGetWidth()/2, ofGetHeight()/3)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(0, 2*(ofGetHeight()/3), ofGetWidth()/2, ofGetHeight()/3)));
-    this->quads.push_back(new BoardQuadrant(ofRectangle(ofGetWidth()/2, 2*(ofGetHeight()/3), ofGetWidth()/2, ofGetHeight()/3)));
+    this->stage = stage;
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x, stage->zero_point.y,
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x+stage->camera->size.x/2, stage->zero_point.y,
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x, stage->camera->size.y/3,
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x+stage->camera->size.x/2, stage->camera->size.y/3,
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x, 2*(stage->camera->size.y/3),
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
+    this->quads.push_back(new BoardQuadrant(ofRectangle(stage->zero_point.x+stage->camera->size.x/2, 2*(stage->camera->size.y/3),
+                                                        stage->camera->size.x/2, stage->camera->size.y/3)));
 }
 
 void BoardPartition::draw() {

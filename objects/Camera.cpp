@@ -12,9 +12,10 @@
 #include "Background.h"
 #include "Mover.h"
 
-Camera::Camera() {
+Camera::Camera(ofVec2f size) {
     this->background = NULL;
     this->group = NULL;
+    this->size = size;
     this->objects = vector<GameObject *>();
     this->scroll_direction = ofVec2f(0, -1);
     this->paused = false;

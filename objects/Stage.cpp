@@ -10,7 +10,7 @@ Stage::Stage()
     this->screen_dimensions = ofVec2f(700, 880);
     this->zero_point = ofVec2f((ofGetWidth()-this->screen_dimensions.x)/2, 0);
     this->background = new Background(this->screen_dimensions, this->zero_point);
-    this->camera = new Camera();
+    this->camera = new Camera(this->screen_dimensions);
     this->camera->setBackgroundReference(this->background);
     this->group = NULL;
 }
