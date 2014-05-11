@@ -9,7 +9,6 @@ cyclic bounded mover should edit like this:
 margins around the screen in edit mode to allow placement of invisible markers
     eg "when you get here, speed up the scrolling"
     or "restart from here in play mode
-simple click and drag to move patterns, kill Z key
 
 DONE
 currently highlighted pattern should highlight its bullets, all others should
