@@ -122,6 +122,9 @@ void testApp::draw(){
 
     player->draw();
     (*cur_group)->draw();
+    
+    stage->drawLetterbox();
+    
     editor->draw();
 }
 

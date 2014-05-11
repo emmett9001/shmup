@@ -15,10 +15,12 @@ public:
     Background *background;
     Camera *camera;
     BulletPatternGroup *group;
+    bool edit_mode;
 
     Stage();
     void update(float deltatime);
     void draw();
+    void drawLetterbox();
     void pause();
     void addPattern(BulletPattern *pattern);
     void prepare();
@@ -26,6 +28,7 @@ public:
     bool isScrolling();
     void stopScrolling();
     void startScrolling(ofVec2f direction);
+    void toggleEditMode();
 };
 
 #endif // STAGE_H

@@ -9,8 +9,7 @@ cyclic bounded mover should edit like this:
 margins around the screen in edit mode to allow placement of invisible markers
     eg "when you get here, speed up the scrolling"
     or "restart from here in play mode
-is_onscreen should say whether the object is within the bounds of the stage
-    camera
+simple click and drag to move patterns, kill Z key
 
 DONE
 currently highlighted pattern should highlight its bullets, all others should
@@ -20,3 +19,5 @@ infinite scroll up and down
 position pattens relative to the stage
 save out coordinates in an infinite coordinate space
 hotkey that clears the screen of all bullets, doesn't kill any patterns
+is_onscreen should say whether the object is within the bounds of the stage
+    camera

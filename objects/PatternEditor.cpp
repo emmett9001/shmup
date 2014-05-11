@@ -35,17 +35,18 @@ void PatternEditor::pause() {
 }
 
 void PatternEditor::draw() {
-    ofSetColor(0, 0, 0);
-    ofDrawBitmapString(this->typeString, 100, 100, 0);
+    ofSetColor(255, 255, 255);
+    ofDrawBitmapString(this->typeString, 5, 100, 0);
 
     if (this->mainMode == kMover) {
-        ofDrawBitmapString("MOVER MODE", 100, 50, 0);
+        ofDrawBitmapString("MOVER MODE", 0, 50, 0);
     } else if (this->mainMode == kPattern) {
-        ofDrawBitmapString("PATTERN MODE", 100, 50, 0);
+        ofDrawBitmapString("PATTERN MODE", 0, 50, 0);
     }
 
-    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nik: pan camera\ns: toggle autoscroll\ne: clear screen\nd: delete all\nw: save", 100, ofGetHeight()-200, 0);
+    ofDrawBitmapString("m: switch modes\np: pause\nf: delete selected\nc: edit count\nv: edit volley timeout\nik: pan camera\ns: toggle autoscroll\ne: clear screen\nd: delete all\nw: save", 0, ofGetHeight()-200, 0);
 
+    ofSetColor(0, 0, 0);
     if (this->highlightedPattern != NULL) {
         ofDrawBitmapString(this->highlightedPattern->describe(), 100, 150, 0);
         if (this->mainMode == kMover) {

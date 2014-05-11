@@ -13,6 +13,7 @@ Stage::Stage()
     this->camera = new Camera(this->screen_dimensions, this->zero_point);
     this->camera->setBackgroundReference(this->background);
     this->group = NULL;
+    this->edit_mode = false;
 }
 
 void Stage::setGroupReference(BulletPatternGroup *group) {
@@ -45,12 +46,27 @@ void Stage::addPattern(BulletPattern *pattern) {
     this->group->addPattern(pattern);
 }
 
+void Stage::toggleEditMode() {
+    this->edit_mode = !this->edit_mode;
+}
+
 void Stage::draw() {
     this->background->draw();
 }
 
+void Stage::drawLetterbox() {
+    if (this->edit_mode) {
+        ofSetColor(255, 255, 255);
+    } else {
+        ofSetColor(0, 0, 0);
+    }
+    ofRect(0, 0, this->zero_point.x, ofGetHeight());
+    ofRect(this->zero_point.x+this->screen_dimensions.x, 0, this->zero_point.x, ofGetHeight());
+}
+
 void Stage::pause() {
     this->camera->pause();
+    this->toggleEditMode();
 }
 
 bool Stage::isScrolling() {
