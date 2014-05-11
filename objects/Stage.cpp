@@ -62,6 +62,7 @@ void Stage::drawLetterbox() {
     }
     ofRect(0, 0, this->zero_point.x, ofGetHeight());
     ofRect(this->zero_point.x+this->screen_dimensions.x, 0, this->zero_point.x, ofGetHeight());
+    this->camera->draw();
 }
 
 void Stage::pause() {

@@ -16,12 +16,19 @@ class BulletPatternGroup;
 class GameObject;
 class Background;
 
+typedef struct _tick {
+    int print_pos;
+    int pos;
+} tick;
+
 class Camera {
 public:
     BulletPatternGroup *group;
     Background *background;
     vector<GameObject*> objects;
-    ofVec2f scroll_direction, last_scroll_direction, size, zero_point;
+    vector<tick*> ticks;
+    int ticks_count;
+    ofVec2f scroll_direction, last_scroll_direction, size, zero_point, origin;
     bool paused;
     
     Camera(ofVec2f size, ofVec2f zero_point);
@@ -33,6 +40,7 @@ public:
     bool isScrolling();
     void move(ofVec2f dir);
     void pause();
+    void draw();
     void unpause();
 };
 
