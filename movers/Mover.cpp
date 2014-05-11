@@ -31,9 +31,9 @@ void Mover::init(BulletPattern *attached, ofVec2f direction, float wavelength) {
 
 void Mover::attach(BulletPattern *host) {
     this->attached = host;
-    this->stage = this->attached->stage;
     if (this->attached != NULL) {
         this->origin = this->attached->origin;
+        this->stage = this->attached->stage;
     }
 }
 

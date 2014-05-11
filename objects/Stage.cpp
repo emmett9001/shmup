@@ -34,6 +34,7 @@ void Stage::prepare() {
         for(vector<Mover *>::iterator it = current_pattern->movers.begin(); it != current_pattern->movers.end(); it++){
             Mover *mover = (Mover *)*it;
             mover->origin += this->zero_point;
+            mover->stage = current_pattern->stage;
         }
         for(vector<Bullet>::iterator it2 = current_pattern->bullets.begin(); it2 != current_pattern->bullets.end(); ++it2) {
             Bullet* current_bullet = (Bullet *)(&(*it2));
