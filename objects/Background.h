@@ -21,7 +21,7 @@ public:
     float tile_height;
     ofVec2f size;
 
-    Background(ofVec2f size);
+    Background(ofVec2f size, ofVec2f zero_point);
     void draw();
     void update(float deltatime);
 };

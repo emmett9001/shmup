@@ -8,8 +8,7 @@ cyclic bounded mover should edit like this:
     click from start point to end point, rather than from center to one apex
 margins around the screen in edit mode to allow placement of invisible markers
     eg "when you get here, speed up the scrolling"
-    or "restart from here in play mode"
-position pattens relative to the stage
+    or "restart from here in play mode
 is_onscreen should say whether the object is within the bounds of the stage
     camera
 
@@ -18,5 +17,6 @@ currently highlighted pattern should highlight its bullets, all others should
     be half hidden
 click to highlight, rather than mouseover
 infinite scroll up and down
+position pattens relative to the stage
 save out coordinates in an infinite coordinate space
 hotkey that clears the screen of all bullets, doesn't kill any patterns

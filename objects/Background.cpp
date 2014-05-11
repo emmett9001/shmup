@@ -8,11 +8,11 @@
 
 #include "Background.h"
 
-Background::Background(ofVec2f size) {
+Background::Background(ofVec2f size, ofVec2f zero_point) {
     this->infinite = true;
     this->tile_height = size.x/8;
     this->size = size;
-    this->pos = ofVec2f((ofGetWidth()-this->size.x)/2, this->tile_height * -2);
+    this->pos = ofVec2f(zero_point.x, zero_point.y + (this->tile_height * -2));
 }
 
 void Background::update(float deltatime) {

@@ -24,7 +24,7 @@ PatternEditor::PatternEditor(BulletPatternGroup *group, Stage *stage)
     this->editMode = kNormal;
     this->paused = false;
     writer = new SketchWriter();
-    writer->loadSketch("dump.txt", this->group);
+    writer->loadSketch("dump.txt", this->stage);
     this->keys = pressedKeys();
 }
 
@@ -198,7 +198,7 @@ void PatternEditor::keyPressed(int key) {
             this->group->patterns.clear();
             break;
         case 'w':
-            writer->writeOut("dump.txt", this->group);
+            writer->writeOut("dump.txt", this->stage);
             break;
         case 'm':
             if (this->mainMode == kPattern) {

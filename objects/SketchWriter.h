@@ -12,15 +12,15 @@
 #include <iostream>
 #include "ofMain.h"
 
-class BulletPatternGroup;
+class Stage;
 
 class SketchWriter
 {
 public:
     SketchWriter();
 
-    void loadSketch(std::string filename, BulletPatternGroup *group);
-    void writeOut(std::string filename, BulletPatternGroup *group);
+    void loadSketch(std::string filename, Stage *stage);
+    void writeOut(std::string filename, Stage *stage);
     ofVec2f parseCoordinates(std::string token);
 };
 

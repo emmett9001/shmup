@@ -9,6 +9,7 @@
 #include "SketchWriter.h"
 
 #include "BulletPattern.h"
+#include "Stage.h"
 #include "Mover.h"
 #include "BulletPatternGroup.h"
 #include "CyclicBoundedStraightLineMover.h"
@@ -17,9 +18,9 @@ SketchWriter::SketchWriter() {
 
 }
 
-void SketchWriter::writeOut(std::string filename, BulletPatternGroup *group) {
+void SketchWriter::writeOut(std::string filename, Stage *stage) {
     ofstream out(filename.c_str());
-    for(vector<BulletPattern*>::iterator it = group->patterns.begin(); it != group->patterns.end(); ++it) {
+    for(vector<BulletPattern*>::iterator it = stage->group->patterns.begin(); it != stage->group->patterns.end(); ++it) {
         cout << "#" << endl;
         out << "#" << endl;
         BulletPattern* current = (BulletPattern *)*it;
@@ -29,7 +30,7 @@ void SketchWriter::writeOut(std::string filename, BulletPatternGroup *group) {
     out.close();
 }
 
-void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
+void SketchWriter::loadSketch(std::string filename, Stage *stage) {
     string line, slug, token, delimiter = ":";
     int i = 0, count;
     float wavelength, volley_timeout;
@@ -45,7 +46,7 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
             if (line.find("#") == 0) {
                 // separator line
                 if (pattern != NULL) {
-                    group->addPattern(pattern);
+                    stage->addPattern(pattern);
                     pattern = NULL;
                     mover = NULL;
                 }
@@ -101,9 +102,9 @@ void SketchWriter::loadSketch(std::string filename, BulletPatternGroup *group) {
             }
         }
         if (pattern != NULL) {
-            group->addPattern(pattern);
+            stage->addPattern(pattern);
         }
-        group->prepare();
+        stage->prepare();
         pattern = NULL;
         mover = NULL;
         myfile.close();
