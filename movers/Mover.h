@@ -2,9 +2,11 @@
 #define MOVER_H
 
 #include "ofMain.h"
+#include "GameObject.h"
 #include "Serializable.h"
 
 class BulletPattern;
+class Stage;
 
 class Mover : public Serializable
 {
@@ -12,6 +14,7 @@ class Mover : public Serializable
         BulletPattern *attached;
         bool paused;
         int step, length;
+        Stage *stage;
         float duration, wavelength;
         ofVec2f origin, direction;
         Mover *next;
@@ -25,6 +28,7 @@ class Mover : public Serializable
         void attach(BulletPattern *host);
         virtual void move(float deltatime) = 0;
         virtual string describe() = 0;
+        ofVec2f originRelativeToStage(Stage *stage);
         string _describe(string slug);
 };
 

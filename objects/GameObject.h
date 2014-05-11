@@ -46,4 +46,5 @@ public:
     virtual void mouseMoved(int x, int y);
     bool is_onscreen();
     bool is_onscreen(Stage *stage);
+    ofVec2f originRelativeToStage(Stage *stage);
 };

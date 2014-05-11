@@ -1,5 +1,6 @@
 #include "Mover.h"
 #include "BulletPattern.h"
+#include "Stage.h"
 
 Mover::Mover()
 {
@@ -23,14 +24,21 @@ void Mover::init(BulletPattern *attached, ofVec2f direction, float wavelength) {
     this->paused = false;
     this->step = 0;
     this->next = NULL;
-    this->attach(attached);
+    if (attached != NULL) {
+        this->attach(attached);
+    }
 }
 
 void Mover::attach(BulletPattern *host) {
     this->attached = host;
+    this->stage = this->attached->stage;
     if (this->attached != NULL) {
         this->origin = this->attached->origin;
     }
+}
+
+ofVec2f Mover::originRelativeToStage(Stage *stage) {
+    return this->origin - stage->zero_point;
 }
 
 void Mover::update(float timedelta) {
@@ -44,8 +52,9 @@ void Mover::update(float timedelta) {
 }
 
 string Mover::_describe(string slug) {
+    ofVec2f relativeOrigin = this->originRelativeToStage(this->stage);
     ostringstream stream;
-    stream << slug << ":" << this->origin.x << "," << this->origin.y;
+    stream << slug << ":" << relativeOrigin.x << "," << relativeOrigin.y;
     stream << ":" << this->direction.x << "," << this->direction.y;
     stream << ":" << this->wavelength;
     return stream.str();

@@ -43,6 +43,7 @@ void Stage::prepare() {
 }
 
 void Stage::addPattern(BulletPattern *pattern) {
+    pattern->stage = this;
     this->group->addPattern(pattern);
 }
 

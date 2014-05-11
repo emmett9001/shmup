@@ -31,6 +31,10 @@ bool GameObject::is_onscreen(Stage *stage){
             );
 }
 
+ofVec2f GameObject::originRelativeToStage(Stage *stage) {
+    return this->origin - stage->zero_point;
+}
+
 void GameObject::keyPressed(int key){
 }
 

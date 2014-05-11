@@ -161,12 +161,17 @@ void BulletPattern::unhighlight() {
     }
 }
 
+ofVec2f BulletPattern::originRelativeToStage(Stage *stage) {
+    return this->origin - stage->zero_point;
+}
+
 string BulletPattern::_describe(string slug) {
     char* str = new char[30];
+    ofVec2f relativeOrigin = this->originRelativeToStage(this->stage);
     ostringstream stream;
-    sprintf(str, "%.2f", this->origin.x);
+    sprintf(str, "%.2f", relativeOrigin.x);
     stream << slug << ":" << str << ",";
-    sprintf(str, "%.2f", this->origin.y);
+    sprintf(str, "%.2f", relativeOrigin.y);
     stream << str << ":" << this->count << ":" << this->volley_timeout << endl;
     for(vector<Mover *>::iterator it = this->movers.begin(); it != this->movers.end(); it++){
         Mover *mover = (Mover *)*it;

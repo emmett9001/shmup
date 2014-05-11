@@ -46,6 +46,7 @@ public:
     void addMover(Mover *mover);
     void clearMovers();
     void destroyAllBullets();
+    ofVec2f originRelativeToStage(Stage *stage);
     void setOrigin(ofVec2f origin);
     void setPlayersReference(vector<Player*>* players);
     void highlight();
