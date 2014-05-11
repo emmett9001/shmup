@@ -9,6 +9,8 @@
 #include "BulletPattern.h"
 #include "StraightLineMover.h"
 #include "Player.h"
+#include "Stage.h"
+#include "Camera.h"
 
 const string BulletPattern::SLUG = "GENERIC";
 
@@ -45,6 +47,7 @@ void BulletPattern::init(int count, ofVec2f origin, float bulletspeed, float vol
     this->duty = duty;
     this->paused = false;
     this->movers = vector<Mover*>();
+    this->stage = NULL;
     this->start();
 }
 
@@ -90,7 +93,7 @@ void BulletPattern::update(float deltatime){
         } else {
             it->unhighlight();
         }
-        if (!it->is_onscreen()) {
+        if (!it->is_onscreen(this->stage)) {
             it = bullets.erase(it);
         } else {
             ++it;
@@ -120,6 +123,14 @@ void BulletPattern::update(float deltatime){
         this->last_volley = this->frame_lifetime;
         this->volley();
     }
+}
+
+bool BulletPattern::is_onscreen(Stage *stage){
+    return (this->origin.x >= stage->camera->zero_point.x
+            && this->origin.x <= stage->camera->zero_point.x+stage->camera->size.x
+            && this->origin.y <= stage->camera->zero_point.y+stage->camera->size.y
+            && this->origin.y >= stage->camera->zero_point.y
+            );
 }
 
 void BulletPattern::setOrigin(ofVec2f origin) {

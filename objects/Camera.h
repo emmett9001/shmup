@@ -21,10 +21,10 @@ public:
     BulletPatternGroup *group;
     Background *background;
     vector<GameObject*> objects;
-    ofVec2f scroll_direction, last_scroll_direction, size;
+    ofVec2f scroll_direction, last_scroll_direction, size, zero_point;
     bool paused;
     
-    Camera(ofVec2f size);
+    Camera(ofVec2f size, ofVec2f zero_point);
     void setGroupReference(BulletPatternGroup *group);
     void setBackgroundReference(Background *background);
     void update(float deltatime);

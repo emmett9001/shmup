@@ -15,12 +15,15 @@
 
 #endif /* defined(__emptyExample__BulletPatternGroup__) */
 
+class Stage;
+
 class BulletPatternGroup {
 public:
     vector<BulletPattern *> patterns;
     bool paused;
+    Stage *stage;
 
-    BulletPatternGroup();
+    BulletPatternGroup(Stage *stage);
 
     void update(float deltatime);
     void draw();

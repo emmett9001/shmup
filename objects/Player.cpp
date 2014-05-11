@@ -9,7 +9,7 @@
 #include "Player.h"
 
 Player::Player(controlType control_type) {
-    this->pos = ofVec2f(ofGetWidth()/2, ofGetHeight()-50);
+    this->origin = ofVec2f(ofGetWidth()/2, ofGetHeight()-50);
     this->hitbox_radius = 5;
     this->colliding = false;
     this->respawned = false;
@@ -23,7 +23,7 @@ Player::Player(controlType control_type) {
 
 void Player::mouseMoved(int x, int y) {
     if (this->control_type != kControlTypeMouse) { return; }
-    this->pos = ofVec2f(x, y);
+    this->origin = ofVec2f(x, y);
 }
 
 void Player::update(float deltatime) {
@@ -126,7 +126,7 @@ void Player::buttonReleased(ofxGamepadButtonEvent& e)
 
 void Player::draw() {
     ofSetColor(this->color);
-    ofCircle(this->pos.x, this->pos.y, 20);
+    ofCircle(this->origin.x, this->origin.y, 20);
     ofSetColor(256, 0, 0);
-    ofCircle(this->pos.x, this->pos.y, this->hitbox_radius);
+    ofCircle(this->origin.x, this->origin.y, this->hitbox_radius);
 }

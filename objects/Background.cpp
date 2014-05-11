@@ -12,13 +12,13 @@ Background::Background(ofVec2f size, ofVec2f zero_point) {
     this->infinite = true;
     this->tile_height = size.x/8;
     this->size = size;
-    this->pos = ofVec2f(zero_point.x, zero_point.y + (this->tile_height * -2));
+    this->origin = ofVec2f(zero_point.x, zero_point.y + (this->tile_height * -2));
 }
 
 void Background::update(float deltatime) {
     if (this->infinite) {
-        if (this->pos.y > 0 || this->pos.y < this->tile_height * -4) {
-            this->pos.y = this->tile_height * -2;
+        if (this->origin.y > 0 || this->origin.y < this->tile_height * -4) {
+            this->origin.y = this->tile_height * -2;
         }
     }
 }
@@ -29,8 +29,8 @@ void Background::draw() {
     bool shade = false;
     for (int i = 0; i < horiz_tiles; i++) {
         for (int j = 0; j < vert_tiles + 3; j++) {
-            int x = this->pos.x + i*tile_height;
-            int y = this->pos.y + j*tile_height;
+            int x = this->origin.x + i*tile_height;
+            int y = this->origin.y + j*tile_height;
             shade = !shade;
             if (shade) {
                 ofSetColor(200, 200, 200);

@@ -17,6 +17,7 @@
 
 class Player;
 class Mover;
+class Stage;
 
 class BulletPattern : public Serializable, public GameObject {
 public:
@@ -24,6 +25,7 @@ public:
     vector<Player*>* players;
     vector<Mover*> movers;
     ofVec2f origin;
+    Stage *stage;
     float volley_timeout, bulletspeed, period, duty;
     bool isrunning, paused, highlighted;
     int count;
@@ -48,6 +50,7 @@ public:
     void setPlayersReference(vector<Player*>* players);
     void highlight();
     void unhighlight();
+    bool is_onscreen(Stage *stage);
 
 private:
     float frame_lifetime, last_volley, period_switch;

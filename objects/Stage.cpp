@@ -10,7 +10,7 @@ Stage::Stage()
     this->screen_dimensions = ofVec2f(700, 880);
     this->zero_point = ofVec2f((ofGetWidth()-this->screen_dimensions.x)/2, 0);
     this->background = new Background(this->screen_dimensions, this->zero_point);
-    this->camera = new Camera(this->screen_dimensions);
+    this->camera = new Camera(this->screen_dimensions, this->zero_point);
     this->camera->setBackgroundReference(this->background);
     this->group = NULL;
 }
@@ -36,7 +36,7 @@ void Stage::prepare() {
         }
         for(vector<Bullet>::iterator it2 = current_pattern->bullets.begin(); it2 != current_pattern->bullets.end(); ++it2) {
             Bullet* current_bullet = (Bullet *)(&(*it2));
-            current_bullet->pos += this->zero_point;
+            current_bullet->origin += this->zero_point;
         }
     }
 }

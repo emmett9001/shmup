@@ -9,7 +9,7 @@
 #include "Bullet.h"
 
 Bullet::Bullet(ofVec2f pos, ofVec2f dir){
-    this->pos = pos;
+    this->origin = pos;
     this->dir = dir;
     this->color = ofColor(0, 0, 0);
     this->alpha = 255;
@@ -21,7 +21,7 @@ Bullet::Bullet(ofVec2f pos, ofVec2f dir){
 
 void Bullet::draw(){
     ofSetColor(this->color, this->alpha);
-    ofCircle(this->pos.x, this->pos.y, this->radius);
+    ofCircle(this->origin.x, this->origin.y, this->radius);
 }
 
 void Bullet::fire(){

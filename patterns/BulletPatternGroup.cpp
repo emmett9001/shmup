@@ -7,41 +7,37 @@
 //
 
 #include "BulletPatternGroup.h"
+#include "Stage.h"
 
-BulletPatternGroup::BulletPatternGroup() {
+BulletPatternGroup::BulletPatternGroup(Stage *stage) {
     this->patterns = vector<BulletPattern *>();
     this->paused = false;
+    this->stage = stage;
 }
 
 void BulletPatternGroup::update(float deltatime) {
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        if (current->is_onscreen()) {
-            current->update(deltatime);
-        }
+        current->update(deltatime);
     }
 }
 
 void BulletPatternGroup::draw() {
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        if (current->is_onscreen()) {
-            current->draw();
-        }
+        current->draw();
     }
 }
 
 void BulletPatternGroup::addPattern(BulletPattern *pattern) {
     this->patterns.push_back(pattern);
-    for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
-        BulletPattern* current = (BulletPattern *)*it;
-    }
+    pattern->stage = this->stage;
 }
 
 void BulletPatternGroup::destroyAllBullets() {
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
-        if (current->is_onscreen()) {
+        if (current->is_onscreen(this->stage)) {
             current->destroyAllBullets();
         }
     }

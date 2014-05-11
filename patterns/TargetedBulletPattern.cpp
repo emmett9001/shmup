@@ -36,7 +36,7 @@ void TargetedBulletPattern::volley(){
     Player *player = (*(this->players)).front();
 
     for (int i = 0; i < this->count; i++) {
-        ofVec2f velocity = player->pos - this->origin;
+        ofVec2f velocity = player->origin - this->origin;
         velocity = velocity.normalize()*this->bulletspeed;
         Bullet *b = new Bullet(this->origin, velocity);
         bullets.push_back(*b);

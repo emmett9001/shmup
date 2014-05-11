@@ -25,7 +25,7 @@ void BoardQuadrant::draw() {
 void BoardQuadrant::update(float deltatime) {
     for(vector<Player*>::iterator it = (*(this->players)).begin(); it != (*(this->players)).end(); ++it) {
         Player* player = (Player *)*it;
-        this->contains_player = this->rect.inside(player->pos);
+        this->contains_player = this->rect.inside(player->origin);
         if (this->contains_player) { break; }
     }
 
@@ -35,12 +35,12 @@ void BoardQuadrant::update(float deltatime) {
             BulletPattern* current = (BulletPattern *)*it;
             for(vector<Bullet>::iterator it2 = current->bullets.begin(); it2 != current->bullets.end(); ++it2) {
                 Bullet* current = (Bullet *)(&(*it2));
-                if (this->rect.inside(current->pos)) {
+                if (this->rect.inside(current->origin)) {
                     count++;
                     current->makeActiveForCollisionFiltering();
                     for(vector<Player*>::iterator it3 = (*(this->players)).begin(); it3 != (*(this->players)).end(); ++it3) {
                         Player* player = (Player *)*it3;
-                        if ((player->pos-current->pos).length() < 2*player->hitbox_radius) {
+                        if ((player->origin-current->origin).length() < 2*player->hitbox_radius) {
                             for(vector<BoardQuadrantCollisionDelegate*>::iterator it4 = this->collisionSubscribers.begin();
                                 it4 != this->collisionSubscribers.end(); ++it4)
                             {

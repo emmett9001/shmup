@@ -12,10 +12,11 @@
 #include "Background.h"
 #include "Mover.h"
 
-Camera::Camera(ofVec2f size) {
+Camera::Camera(ofVec2f size, ofVec2f zero_point) {
     this->background = NULL;
     this->group = NULL;
     this->size = size;
+    this->zero_point = zero_point;
     this->objects = vector<GameObject *>();
     this->scroll_direction = ofVec2f(0, -1);
     this->paused = false;
@@ -54,7 +55,6 @@ void Camera::pause() {
     } else {
         this->scroll_direction = this->last_scroll_direction;
     }
-    
 }
 
 void Camera::move(ofVec2f dir) {
@@ -68,8 +68,8 @@ void Camera::move(ofVec2f dir) {
         }
         for(vector<Bullet>::iterator it2 = current_pattern->bullets.begin(); it2 != current_pattern->bullets.end(); ++it2) {
             Bullet* current_bullet = (Bullet *)(&(*it2));
-            current_bullet->pos -= dir;
+            current_bullet->origin -= dir;
         }
     }
-    background->pos -= dir;
+    background->origin -= dir;
 }

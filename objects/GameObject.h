@@ -32,9 +32,11 @@ struct pressedKeys {
     bool z;
 };
 
+class Stage;
+
 class GameObject{
 public:
-    ofVec2f pos, dir;
+    ofVec2f origin, dir;
     float frame_lifetime;
 
     virtual void draw() = 0;
@@ -43,4 +45,5 @@ public:
     virtual void keyReleased(int key);
     virtual void mouseMoved(int x, int y);
     bool is_onscreen();
+    bool is_onscreen(Stage *stage);
 };

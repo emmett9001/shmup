@@ -38,12 +38,6 @@ void testApp::setup(){
     ofVec2f origin = ofVec2f(230,200);
     player = new Player(control_type);
 
-    BulletPatternGroup *group;
-
-    // blank group for editing
-    group = new BulletPatternGroup();
-    groups.push_back(group);
-
     /*
     group = new BulletPatternGroup();
     group->addPattern(new CyclicEllipseBulletPattern(30, origin, 7, .3));
@@ -74,10 +68,16 @@ void testApp::setup(){
     group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
     groups.push_back(group);
     */
-
+    stage = new Stage();
+    
+    BulletPatternGroup *group;
+    
+    // blank group for editing
+    group = new BulletPatternGroup(stage);
+    groups.push_back(group);
+    
     cur_group = groups.begin();
 
-    stage = new Stage();
     stage->setGroupReference(*cur_group);
 
     editor = new PatternEditor(*cur_group, stage);
