@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "Background.h"
 #include "Mover.h"
+#include "Marker.h"
 
 Camera::Camera(ofVec2f size, ofVec2f zero_point) {
     this->background = NULL;
@@ -59,6 +60,10 @@ bool Camera::isScrolling() {
     return this->scroll_direction.x != 0 || this->scroll_direction.y != 0;
 }
 
+void Camera::addObject(GameObject *object) {
+    this->objects.push_back(object);
+}
+
 void Camera::pause() {
     this->paused = !this->paused;
     if (this->paused) {
@@ -103,6 +108,11 @@ void Camera::move(ofVec2f dir) {
         this->ticks.push_back(_tick);
     }
     
+    for(vector<GameObject*>::iterator it = this->objects.begin(); it != this->objects.end(); ++it) {
+        GameObject *object = (GameObject *)*it;
+        object->origin -= dir;
+    }
+    
     for(vector<BulletPattern*>::iterator it = this->group->patterns.begin(); it != this->group->patterns.end(); ++it) {
         BulletPattern* current_pattern = (BulletPattern *)*it;
         current_pattern->origin -= dir;
@@ -116,4 +126,8 @@ void Camera::move(ofVec2f dir) {
         }
     }
     background->origin -= dir;
+}
+
+ofVec2f Camera::positionInFrame(GameObject *object) {
+    return object->origin - this->zero_point;
 }

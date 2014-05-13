@@ -4,6 +4,8 @@
 #include "BulletPattern.h"
 #include "BulletPatternGroup.h"
 #include "Mover.h"
+#include "Marker.h"
+#include "Player.h"
 
 Stage::Stage()
 {
@@ -14,6 +16,8 @@ Stage::Stage()
     this->camera->setBackgroundReference(this->background);
     this->group = NULL;
     this->edit_mode = false;
+    
+    this->markers = vector<StageMarker *>();
 }
 
 void Stage::setGroupReference(BulletPatternGroup *group) {
@@ -24,6 +28,14 @@ void Stage::setGroupReference(BulletPatternGroup *group) {
 void Stage::update(float deltatime) {
     this->camera->update(deltatime);
     this->background->update(deltatime);
+    
+    for(vector<StageMarker *>::iterator it = this->markers.begin(); it != this->markers.end(); ++it) {
+        StageMarker *current = (StageMarker *)*it;
+        if (abs(this->camera->size.y/2 - this->camera->positionInFrame(current).y) < 3) {
+            current->start();
+        }
+        current->update();
+    }
 }
 
 void Stage::prepare() {
@@ -48,6 +60,12 @@ void Stage::addPattern(BulletPattern *pattern) {
     this->group->addPattern(pattern);
 }
 
+void Stage::addMarker(StageMarker *marker) {
+    marker->stage = this;
+    this->camera->addObject(marker);
+    this->markers.push_back(marker);
+}
+
 void Stage::toggleEditMode() {
     this->edit_mode = !this->edit_mode;
 }
@@ -57,13 +75,15 @@ void Stage::draw() {
 }
 
 void Stage::drawLetterbox() {
-    if (this->edit_mode) {
-        ofSetColor(255, 255, 255);
-    } else {
-        ofSetColor(0, 0, 0);
-    }
+    ofSetColor(0, 0, 0);
     ofRect(0, 0, this->zero_point.x, ofGetHeight());
     ofRect(this->zero_point.x+this->screen_dimensions.x, 0, this->zero_point.x, ofGetHeight());
+    
+    for(vector<StageMarker *>::iterator it = this->markers.begin(); it != this->markers.end(); ++it) {
+        StageMarker *current = (StageMarker *)*it;
+        current->draw();
+    }
+    
     this->camera->draw();
 }
 

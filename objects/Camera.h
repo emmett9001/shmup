@@ -34,6 +34,7 @@ public:
     Camera(ofVec2f size, ofVec2f zero_point);
     void setGroupReference(BulletPatternGroup *group);
     void setBackgroundReference(Background *background);
+    void addObject(GameObject *object);
     void update(float deltatime);
     void startScrolling(ofVec2f dir);
     void stopScrolling();
@@ -42,6 +43,7 @@ public:
     void pause();
     void draw();
     void unpause();
+    ofVec2f positionInFrame(GameObject *object);
 };
 
 #endif /* defined(__emptyExample__Camera__) */

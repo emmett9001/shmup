@@ -5,6 +5,7 @@
 #include "BoardPartition.h"
 #include "Camera.h"
 #include "Stage.h"
+#include "Marker.h"
 
 #include "CyclicEllipseBulletPattern.h"
 #include "RadialBulletPattern.h"
@@ -79,6 +80,9 @@ void testApp::setup(){
     cur_group = groups.begin();
 
     stage->setGroupReference(*cur_group);
+    
+    StageMarker *testMarker = new StageMarker(ofVec2f(69, -200));
+    stage->addMarker(testMarker);
 
     editor = new PatternEditor(*cur_group, stage);
     
@@ -98,6 +102,7 @@ void testApp::setup(){
     }
 
     editor->setPlayersReference(&players);
+    stage->players = &players;
 }
 
 void testApp::collided(GameObject *obj) {
