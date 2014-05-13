@@ -39,36 +39,6 @@ void testApp::setup(){
     ofVec2f origin = ofVec2f(230,200);
     player = new Player(control_type);
 
-    /*
-    group = new BulletPatternGroup();
-    group->addPattern(new CyclicEllipseBulletPattern(30, origin, 7, .3));
-    groups.push_back(group);
-
-    group = new BulletPatternGroup();
-    group->addPattern(new RadialBulletPattern(20, origin, 10, .085));
-    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
-    groups.push_back(group);
-
-    group = new BulletPatternGroup();
-    float angle = 1;
-    for(int i = 0; i < 10; i++){
-        ofVec2f thispos = ofVec2f(200*sin(angle),200*cos(angle));
-        group->addPattern(new TargetedBulletPattern(1, thispos+ofVec2f(300, 300), 5, .1, 2, .5));
-        angle += (2*PI)/10;
-    }
-    groups.push_back(group);
-
-    group = new BulletPatternGroup();
-    group->addPattern(new FanOutBulletPattern(10, origin, 5, .2, PI/2, ofVec2f(0, 1), 0, 1, .5));
-    group->addPattern(new TargetedBulletPattern(1, origin+ofVec2f(300, 300), 5, .1, 2, .5));
-    group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
-    groups.push_back(group);
-
-    group = new BulletPatternGroup();
-    group->addPattern(new OscillatingFanOutBulletPattern(10, origin, 5, .2, ofVec2f(0, 1)));
-    group->addPattern(new OscillatingFanOutBulletPattern(15, origin+ofVec2f(200, 0), 5, .2, ofVec2f(0, 1)));
-    groups.push_back(group);
-    */
     stage = new Stage();
     
     BulletPatternGroup *group;
