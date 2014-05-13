@@ -18,8 +18,10 @@ class Camera;
 class ScrollSpeedMarker : public StageMarker {
 public:
     ofVec2f scroll_direction;
+    float y_delta;
     
     ScrollSpeedMarker(ofVec2f origin, ofVec2f scroll_direction);
+    ScrollSpeedMarker(ofVec2f origin, float delta);
     virtual void do_activation();
     virtual void do_active_update();
 };

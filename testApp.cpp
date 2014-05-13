@@ -52,7 +52,7 @@ void testApp::setup(){
     stage->setGroupReference(*cur_group);
     
     // test only - these should be added from file
-    ScrollSpeedMarker *testMarker = new ScrollSpeedMarker(ofVec2f(69, -200), ofVec2f(0, -4));
+    ScrollSpeedMarker *testMarker = new ScrollSpeedMarker(ofVec2f(69, -200), -1.01);
     stage->addMarker(testMarker);
 
     editor = new PatternEditor(*cur_group, stage);
