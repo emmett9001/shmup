@@ -25,6 +25,8 @@ public:
     void start();
     void stop();
     void draw();
+    virtual void do_activation() = 0;
+    virtual void do_active_update() = 0;
 };
 
 #endif /* defined(__emptyExample__Marker__) */

@@ -16,6 +16,7 @@ StageMarker::StageMarker(ofVec2f origin) {
 
 void StageMarker::start() {
     this->is_active = true;
+    this->do_activation();
 }
 
 void StageMarker::stop() {
@@ -24,7 +25,7 @@ void StageMarker::stop() {
 
 void StageMarker::update() {
     if (this->is_active) {
-        // do my thing
+        this->do_active_update();
     }
 }
 

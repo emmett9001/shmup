@@ -5,7 +5,7 @@
 #include "BoardPartition.h"
 #include "Camera.h"
 #include "Stage.h"
-#include "Marker.h"
+#include "ScrollSpeedMarker.h"
 
 #include "CyclicEllipseBulletPattern.h"
 #include "RadialBulletPattern.h"
@@ -51,7 +51,8 @@ void testApp::setup(){
 
     stage->setGroupReference(*cur_group);
     
-    StageMarker *testMarker = new StageMarker(ofVec2f(69, -200));
+    // test only - these should be added from file
+    ScrollSpeedMarker *testMarker = new ScrollSpeedMarker(ofVec2f(69, -200), ofVec2f(0, -4));
     stage->addMarker(testMarker);
 
     editor = new PatternEditor(*cur_group, stage);

@@ -6,11 +6,11 @@ hit key to drop into "play mode"
 in play mode, scroll starts upward from checkpoint and you die if you get hit
 cyclic bounded mover should edit like this:
     click from start point to end point, rather than from center to one apex
-margins around the screen in edit mode to allow placement of invisible markers
-    eg "when you get here, speed up the scrolling"
-    or "restart from here in play mode
+marker for "start checkpoint"
 save and load these markers from file
 allow markers to be added via editor
+make marker placement match sidebar tick marks
+    this will probably be fixed when markers are loaded from file
 
 DONE
 currently highlighted pattern should highlight its bullets, all others should
@@ -22,3 +22,6 @@ save out coordinates in an infinite coordinate space
 hotkey that clears the screen of all bullets, doesn't kill any patterns
 is_onscreen should say whether the object is within the bounds of the stage
     camera
+margins around the screen in edit mode to allow placement of invisible markers
+    eg "when you get here, speed up the scrolling"
+    or "restart from here in play mode"
