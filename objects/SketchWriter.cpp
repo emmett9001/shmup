@@ -13,6 +13,7 @@
 #include "Mover.h"
 #include "BulletPatternGroup.h"
 #include "CyclicBoundedStraightLineMover.h"
+#include "Marker.h"
 
 SketchWriter::SketchWriter() {
 
@@ -21,11 +22,18 @@ SketchWriter::SketchWriter() {
 void SketchWriter::writeOut(std::string filename, Stage *stage) {
     ofstream out(filename.c_str());
     for(vector<BulletPattern*>::iterator it = stage->group->patterns.begin(); it != stage->group->patterns.end(); ++it) {
-        cout << "#" << endl;
-        out << "#" << endl;
+        cout << "# pattern" << endl;
+        out << "# pattern" << endl;
         BulletPattern* current = (BulletPattern *)*it;
         out << current->describe();
         cout << current->describe();
+    }
+    for(vector<StageMarker *>::iterator it = stage->markers.begin(); it != stage->markers.end(); ++it) {
+        cout << "# marker" << endl;
+        out << "# marker" << endl;
+        StageMarker* current = (StageMarker *)*it;
+        cout << current->describe();
+        out << current->describe();
     }
     out.close();
 }
@@ -35,10 +43,12 @@ void SketchWriter::loadSketch(std::string filename, Stage *stage) {
     int i = 0, count;
     float wavelength, volley_timeout;
     ifstream myfile (filename.c_str());
-    bool inPattern = false;
+    bool inPattern = false, inMarker = false;
+    bool patternStart = false, markerStart = false;
     ofVec2f origin, direction;
     BulletPattern *pattern = NULL;
     Mover *mover = NULL;
+    StageMarker *marker = NULL;
     if (myfile.is_open()) {
         while (getline(myfile,line)) {
             i = 0;
@@ -50,7 +60,17 @@ void SketchWriter::loadSketch(std::string filename, Stage *stage) {
                     pattern = NULL;
                     mover = NULL;
                 }
+                if (marker != NULL) {
+                    stage->addMarker(marker);
+                    marker = NULL;
+                }
                 inPattern = false;
+                inMarker = false;
+                if (line.find("pattern") > 0 && line.find("pattern") < 200) {
+                    patternStart = true;
+                } else if (line.find("marker") > 0 && line.find("marker") < 200) {
+                    markerStart = true;
+                }
             } else {
                 if (inPattern) {
                     // mover line
@@ -76,37 +96,62 @@ void SketchWriter::loadSketch(std::string filename, Stage *stage) {
                     if (pattern != NULL) {
                         pattern->addMover(mover);
                     }
+                } else if (inMarker) {
+                    // any additions to markers will go here
                 } else {
-                    // pattern line
-                    inPattern = true;
-                    while (i != 4) {
-                        pos = line.find(delimiter);
-                        token = line.substr(0, pos);
-                        if (i == 0) {
-                            slug = token;
-                        } else if (i == 1) {
-                            origin = this->parseCoordinates(token);
-                        } else if (i == 2) {
-                            count = ::atof(token.c_str());
-                        } else if (i == 3) {
-                            volley_timeout = ::atof(token.c_str());
+                    // pattern or marker line
+                    if (patternStart) {
+                        patternStart = false;
+                        inPattern = true;
+                        while (i != 4) {
+                            pos = line.find(delimiter);
+                            token = line.substr(0, pos);
+                            if (i == 0) {
+                                slug = token;
+                            } else if (i == 1) {
+                                origin = this->parseCoordinates(token);
+                            } else if (i == 2) {
+                                count = ::atof(token.c_str());
+                            } else if (i == 3) {
+                                volley_timeout = ::atof(token.c_str());
+                            }
+                            line.erase(0, pos + delimiter.length());
+                            ++i;
                         }
-                        line.erase(0, pos + delimiter.length());
-                        ++i;
+                        pattern = (BulletPattern *)(*SerializableFactory::creator_map)[slug]();
+                        pattern->count = count;
+                        pattern->origin = origin;
+                        pattern->volley_timeout = volley_timeout;
+                    } else if (markerStart) {
+                        markerStart = false;
+                        inMarker = true;
+                        while (i != 2) {
+                            pos = line.find(delimiter);
+                            token = line.substr(0, pos);
+                            if (i == 0) {
+                                slug = token;
+                            } else if (i == 1) {
+                                origin = this->parseCoordinates(token);
+                            }
+                            line.erase(0, pos + delimiter.length());
+                            ++i;
+                        }
+                        marker = (StageMarker *)(*SerializableFactory::creator_map)[slug]();
+                        marker->origin = origin;
                     }
-                    pattern = (BulletPattern *)(*SerializableFactory::creator_map)[slug]();
-                    pattern->count = count;
-                    pattern->origin = origin;
-                    pattern->volley_timeout = volley_timeout;
                 }
             }
         }
         if (pattern != NULL) {
             stage->addPattern(pattern);
         }
+        if (marker != NULL) {
+            stage->addMarker(marker);
+        }
         stage->prepare();
         pattern = NULL;
         mover = NULL;
+        marker = NULL;
         myfile.close();
     }
 }

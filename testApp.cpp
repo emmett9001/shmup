@@ -40,23 +40,19 @@ void testApp::setup(){
     player = new Player(control_type);
 
     stage = new Stage();
-    
+
     BulletPatternGroup *group;
-    
+
     // blank group for editing
     group = new BulletPatternGroup(stage);
     groups.push_back(group);
-    
+
     cur_group = groups.begin();
 
     stage->setGroupReference(*cur_group);
-    
-    // test only - these should be added from file
-    ScrollSpeedMarker *testMarker = new ScrollSpeedMarker(ofVec2f(69, -200), -1.01);
-    stage->addMarker(testMarker);
 
     editor = new PatternEditor(*cur_group, stage);
-    
+
     board_partition = new BoardPartition(stage);
 
     players.push_back(player);
@@ -98,9 +94,9 @@ void testApp::draw(){
 
     player->draw();
     (*cur_group)->draw();
-    
+
     stage->drawLetterbox();
-    
+
     editor->draw();
 }
 

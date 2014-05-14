@@ -51,7 +51,7 @@ void BulletPatternGroup::pause() {
     }
 }
 
-void BulletPatternGroup::prepare() {
+float BulletPatternGroup::prepare() {
     float greatest_y = 0;
     for(vector<BulletPattern*>::iterator it = this->patterns.begin(); it != this->patterns.end(); ++it) {
         BulletPattern* current = (BulletPattern *)*it;
@@ -63,4 +63,5 @@ void BulletPatternGroup::prepare() {
         BulletPattern* current = (BulletPattern *)*it;
         current->setOrigin(ofVec2f(current->origin.x, current->origin.y-greatest_y));
     }
+    return greatest_y;
 }

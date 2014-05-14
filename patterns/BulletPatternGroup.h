@@ -27,7 +27,7 @@ public:
 
     void update(float deltatime);
     void draw();
-    void prepare();
+    float prepare();
     void addPattern(BulletPattern *pattern);
     void destroyAllBullets();
     void pause();
