@@ -27,8 +27,8 @@ class Mover : public Serializable
         void update(float deltatime);
         void attach(BulletPattern *host);
         virtual void move(float deltatime) = 0;
-        virtual string describe() = 0;
         ofVec2f originRelativeToStage(Stage *stage);
+        virtual string describe() = 0;
         string _describe(string slug);
 };
 

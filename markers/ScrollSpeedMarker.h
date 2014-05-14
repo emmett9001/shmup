@@ -17,13 +17,18 @@ class Camera;
 
 class ScrollSpeedMarker : public StageMarker {
 public:
+    static const string SLUG;
     ofVec2f scroll_direction;
     float y_delta;
-    
+
+    ScrollSpeedMarker();
     ScrollSpeedMarker(ofVec2f origin, ofVec2f scroll_direction);
     ScrollSpeedMarker(ofVec2f origin, float delta);
     virtual void do_activation();
     virtual void do_active_update();
+    string describe();
+private:
+    REGISTER_DEC_TYPE(ScrollSpeedMarker);
 };
 
 #endif /* defined(__emptyExample__ScrollSpeedMarker__) */
